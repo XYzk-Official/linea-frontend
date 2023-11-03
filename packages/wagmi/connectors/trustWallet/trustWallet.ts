@@ -1,9 +1,15 @@
 /* eslint-disable prefer-destructuring */
 /* eslint-disable consistent-return */
 /* eslint-disable class-methods-use-this */
-import { Chain, ConnectorNotFoundError, ResourceUnavailableError, RpcError, UserRejectedRequestError } from 'wagmi'
-import { InjectedConnector } from 'wagmi/connectors/injected'
-import { Address, Ethereum, getClient } from '@wagmi/core'
+import {
+  Chain,
+  ConnectorNotFoundError,
+  ResourceUnavailableError,
+  RpcError,
+  UserRejectedRequestError,
+} from '@xyzk/wagmi'
+import { InjectedConnector } from '@xyzk/wagmi/connectors/injected'
+import { Address, Ethereum, getClient } from '@xyzk/wagmi-core'
 import { getAddress } from '@ethersproject/address'
 
 declare global {

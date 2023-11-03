@@ -2,8 +2,14 @@
 /* eslint-disable consistent-return */
 /* eslint-disable class-methods-use-this */
 import { getAddress } from '@ethersproject/address'
-import { Chain, ConnectorNotFoundError, ResourceUnavailableError, RpcError, UserRejectedRequestError } from 'wagmi'
-import { InjectedConnector } from 'wagmi/connectors/injected'
+import {
+  Chain,
+  ConnectorNotFoundError,
+  ResourceUnavailableError,
+  RpcError,
+  UserRejectedRequestError,
+} from '@xyzk/wagmi'
+import { InjectedConnector } from '@xyzk/wagmi/connectors/injected'
 
 declare global {
   interface Window {

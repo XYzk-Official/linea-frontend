@@ -18,8 +18,6 @@
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
   },
   "peerDependencies": {
-    "wagmi": "^0.12.12",
-    "@wagmi/core": "^0.10.10",
     "@blocto/sdk": "^0.3.1",
     "@ethersproject/abi": "^5.0.0",
     "@ethersproject/address": "^5.0.0",
@@ -34,9 +32,6 @@
     "react-dom": "^18.0.0"
   },
   "devDependencies": {
-    "@types/react": "^18.0.17",
-    "wagmi": "^0.12.12",
-    "@wagmi/core": "^0.10.10",
     "@blocto/sdk": "^0.3.1",
     "@ethersproject/abi": "^5.0.0",
     "@ethersproject/address": "^5.0.0",
@@ -47,9 +42,10 @@
     "@ethersproject/providers": "^5.0.0",
     "@ethersproject/strings": "^5.0.0",
     "@ethersproject/units": "^5.0.0",
+    "@pancakeswap/tsconfig": "workspace:*",
+    "@types/react": "^18.0.17",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
-    "@pancakeswap/tsconfig": "workspace:*",
     "tsup": "^6.7.0"
   },
   "exports": {
@@ -87,5 +83,9 @@
     "swr": {
       "optional": true
     }
+  },
+  "dependencies": {
+    "@xyzk/wagmi": "^0.2.1",
+    "@xyzk/wagmi-core": "^0.2.1"
   }
 }

@@ -8,10 +8,10 @@ import {
   RpcError,
   UserRejectedRequestError,
   SwitchChainNotSupportedError,
-} from 'wagmi'
-import { InjectedConnector } from 'wagmi/connectors/injected'
+} from '@xyzk/wagmi'
+import { InjectedConnector } from '@xyzk/wagmi/connectors/injected'
 import { hexValue } from '@ethersproject/bytes'
-import type { Ethereum } from '@wagmi/core'
+import type { Ethereum } from '@xyzk/wagmi-core'
 
 declare global {
   interface Window {

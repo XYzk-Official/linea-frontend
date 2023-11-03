@@ -9,8 +9,8 @@ import {
   RpcError,
   UserRejectedRequestError,
   ProviderRpcError,
-} from 'wagmi'
-import { Connector, normalizeChainId } from '@wagmi/core'
+} from '@xyzk/wagmi'
+import { Connector, normalizeChainId } from '@xyzk/wagmi-core'
 import type { EthereumProviderInterface } from '@blocto/sdk'
 import { getAddress } from '@ethersproject/address'
 import { ExternalProvider, Web3Provider } from '@ethersproject/providers'

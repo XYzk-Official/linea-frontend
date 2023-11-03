@@ -1,6 +1,6 @@
-import { SignMessageArgs } from '@wagmi/core'
+import { SignMessageArgs } from '@xyzk/wagmi-core'
 import { useCallback } from 'react'
-import { useAccount, useSignMessage as useSignMessageWagmi } from 'wagmi'
+import { useAccount, useSignMessage as useSignMessageWagmi } from '@xyzk/wagmi'
 
 export function useSignMessage() {
   const { address, connector } = useAccount()

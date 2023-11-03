@@ -1,4 +1,4 @@
-import { Chain, Connector, useAccount, useNetwork } from 'wagmi'
+import { Chain, Connector, useAccount, useNetwork } from '@xyzk/wagmi'
 
 export function useWeb3React(): {
   chainId: number | undefined
