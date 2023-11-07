@@ -12,7 +12,7 @@ import {
   useConnect,
   useDisconnect,
   useNetwork,
-} from 'wagmi'
+} from '@xyzk/wagmi'
 import { clearUserStates } from '../utils/clearUserStates'
 import { useActiveChainId } from './useActiveChainId'
 import { useSessionChainId } from './useSessionChainId'

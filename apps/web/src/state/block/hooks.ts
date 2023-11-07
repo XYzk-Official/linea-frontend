@@ -2,7 +2,7 @@ import { FAST_INTERVAL, SLOW_INTERVAL } from 'config/constants'
 // eslint-disable-next-line camelcase
 import useSWR, { useSWRConfig, unstable_serialize } from 'swr'
 import useSWRImmutable from 'swr/immutable'
-import { useProvider } from 'wagmi'
+import { useProvider } from '@xyzk/wagmi'
 import { useActiveChainId } from 'hooks/useActiveChainId'
 
 const REFRESH_BLOCK_INTERVAL = 6000

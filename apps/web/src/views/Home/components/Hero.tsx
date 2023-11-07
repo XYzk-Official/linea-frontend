@@ -1,5 +1,5 @@
 import { Button, Flex, Heading, NextLinkFromReactRouter } from '@pancakeswap/uikit'
-import { useAccount } from 'wagmi'
+import { useAccount } from '@xyzk/wagmi'
 import ConnectWalletButton from 'components/ConnectWalletButton'
 import { useTranslation } from '@pancakeswap/localization'
 import Image from 'next/legacy/image'

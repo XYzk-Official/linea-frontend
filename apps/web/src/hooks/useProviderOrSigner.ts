@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
 import { newProvider } from 'config/chains'
 import { ChainId } from '@pancakeswap/sdk'
-import { useAccount, useProvider, useSigner } from 'wagmi'
+import { useAccount, useProvider, useSigner } from '@xyzk/wagmi'
 import { useActiveChainId } from './useActiveChainId'
 
 export const useProviderOrSigner = (withSignerIfPossible = true, forceBSC?: boolean) => {

@@ -1,4 +1,4 @@
-import { useAccount } from 'wagmi'
+import { useAccount } from '@xyzk/wagmi'
 import { useMemo } from 'react'
 import { useActiveChainId } from './useActiveChainId'
 

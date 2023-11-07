@@ -13,7 +13,7 @@ import { useV3TokenIdsByAccount } from 'hooks/v3/useV3Positions'
 import { useMemo, useState } from 'react'
 import { useFarmsV3Public } from 'state/farmsV3/hooks'
 import { calculateGasMargin } from 'utils'
-import { useAccount, useContractReads, useSigner } from 'wagmi'
+import { useAccount, useContractReads, useSigner } from '@xyzk/wagmi'
 
 const lmPoolAbi = [
   {

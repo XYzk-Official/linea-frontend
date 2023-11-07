@@ -3,7 +3,7 @@ import { atom, useAtomValue } from 'jotai'
 import { useRouter } from 'next/router'
 import { useDeferredValue } from 'react'
 import { isChainSupported } from 'utils/wagmi'
-import { useNetwork } from 'wagmi'
+import { useNetwork } from '@xyzk/wagmi'
 import { getChainId } from 'config/chains'
 import { useSessionChainId } from './useSessionChainId'
 

@@ -4,7 +4,7 @@ import { useSWRConfig } from 'swr'
 import { useTranslation } from '@pancakeswap/localization'
 import isUndefinedOrNull from '@pancakeswap/utils/isUndefinedOrNull'
 import { useAtom } from 'jotai'
-import { useAccount } from 'wagmi'
+import { useAccount } from '@xyzk/wagmi'
 import atomWithStorageWithErrorCatch from 'utils/atomWithStorageWithErrorCatch'
 import { useUserCakeLockStatus } from './useUserCakeLockStatus'
 

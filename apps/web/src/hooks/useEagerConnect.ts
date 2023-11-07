@@ -1,4 +1,4 @@
-import { useClient, useConnect } from 'wagmi'
+import { useClient, useConnect } from '@xyzk/wagmi'
 import { useEffect } from 'react'
 import { CHAINS } from 'config/chains'
 

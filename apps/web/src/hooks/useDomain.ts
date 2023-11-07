@@ -2,7 +2,7 @@ import { ChainId } from '@pancakeswap/sdk'
 import { useSidNameForAddress } from 'hooks/useSid'
 import { useUnsNameForAddress } from 'hooks/useUns'
 import { useMemo } from 'react'
-import { useEnsAvatar, useEnsName } from 'wagmi'
+import { useEnsAvatar, useEnsName } from '@xyzk/wagmi'
 import { useActiveChainId } from 'hooks/useActiveChainId'
 
 export const useDomainNameForAddress = (address: `0x${string}` | string, fetchData = true) => {

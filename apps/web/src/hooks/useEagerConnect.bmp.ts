@@ -4,7 +4,7 @@ import { useCallback } from 'react'
 import { useToast } from '@pancakeswap/uikit'
 import { useTranslation } from '@pancakeswap/localization'
 import { MiniProgramConnector } from '@pancakeswap/wagmi/connectors/miniProgram'
-import { useConnect } from 'wagmi'
+import { useConnect } from '@xyzk/wagmi'
 import getWeb3Provider from 'utils/mpBridge'
 import { chains } from '../utils/wagmi'
 

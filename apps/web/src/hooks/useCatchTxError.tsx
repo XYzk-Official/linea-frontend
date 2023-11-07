@@ -5,7 +5,7 @@ import { TransactionReceipt, TransactionResponse } from '@ethersproject/provider
 import { ToastDescriptionWithTx } from 'components/Toast'
 
 import { logError, isUserRejected } from 'utils/sentry'
-import { useProvider } from 'wagmi'
+import { useProvider } from '@xyzk/wagmi'
 import { useActiveChainId } from 'hooks/useActiveChainId'
 
 export type TxResponse = TransactionResponse | null

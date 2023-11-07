@@ -3,7 +3,7 @@ import { ChainId, ERC20Token } from '@pancakeswap/sdk'
 import memoize from 'lodash/memoize'
 import invert from 'lodash/invert'
 import { Bera } from 'config/abi/types'
-import { bsc, bscTestnet, goerli, mainnet, fantomTestnet } from 'wagmi/chains'
+import { bsc, bscTestnet, goerli, mainnet, fantomTestnet, linea, lineaTestnet } from '@xyzk/wagmi-chains'
 import { ethers, Signer } from 'ethers'
 import { Provider } from '@ethersproject/abstract-provider'
 import { getBeraBunnyFactoryAddress } from 'utils/addressHelpers'
@@ -17,6 +17,8 @@ export const CHAIN_QUERY_NAME = {
   [ChainId.BSC]: 'bsc',
   [ChainId.BSC_TESTNET]: 'bscTestnet',
   4002: 'ftmTestnet',
+  59144: 'linea',
+  59140: 'lineaTestnet',
 }
 
 const CHAIN_QUERY_NAME_TO_ID = invert(CHAIN_QUERY_NAME)
@@ -26,7 +28,7 @@ export const getChainId = memoize((chainName: string) => {
   return CHAIN_QUERY_NAME_TO_ID[chainName] ? +CHAIN_QUERY_NAME_TO_ID[chainName] : undefined
 })
 
-export const CHAINS = [bsc, mainnet, bscTestnet, goerli, fantomTestnet]
+export const CHAINS = [bsc, mainnet, bscTestnet, goerli, fantomTestnet, linea, lineaTestnet]
 
 export interface IBlockChainData {
   chainId: number
@@ -99,6 +101,8 @@ export const beraSleepBunniesAddress = {
 export const newProvider = {
   [ftmTest.chainId]: new ethers.providers.StaticJsonRpcProvider(ftmTest.rpc),
   [bscMainnet.chainId]: new ethers.providers.StaticJsonRpcProvider(bscMainnet.rpc),
+  [lineaTestnet.id]: new ethers.providers.StaticJsonRpcProvider(lineaTestnet.rpcUrls.public.http[0]),
+  [linea.id]: new ethers.providers.StaticJsonRpcProvider(linea.rpcUrls.public.http[0]),
 }
 
 export const getBeraMulticallContract = (chainId: number = ftmTest.chainId) => {
