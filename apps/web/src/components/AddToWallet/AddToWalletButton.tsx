@@ -9,7 +9,7 @@ import {
   TokenPocketIcon,
   TrustWalletIcon,
 } from '@pancakeswap/uikit'
-import { useAccount } from 'wagmi'
+import { useAccount } from '@xyzk/wagmi'
 import { canRegisterToken } from '../../utils/wallet'
 import { BAD_SRCS } from '../Logo/constants'
 
