@@ -1,6 +1,6 @@
 import { Currency, CurrencyAmount, Native, Token } from '@pancakeswap/sdk'
 import { useMemo } from 'react'
-import { useAccount } from 'wagmi'
+import { useAccount } from '@xyzk/wagmi'
 import ERC20_INTERFACE from 'config/abi/erc20'
 import { useAllTokens } from 'hooks/Tokens'
 import { useMulticallContract } from 'hooks/useContract'
