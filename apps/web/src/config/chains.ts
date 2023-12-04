@@ -28,7 +28,7 @@ export const getChainId = memoize((chainName: string) => {
   return CHAIN_QUERY_NAME_TO_ID[chainName] ? +CHAIN_QUERY_NAME_TO_ID[chainName] : undefined
 })
 
-export const CHAINS = [bsc, mainnet, bscTestnet, goerli, fantomTestnet, linea, lineaTestnet]
+export const CHAINS = [bsc, mainnet, bscTestnet, goerli, linea, lineaTestnet]
 
 export interface IBlockChainData {
   chainId: number
@@ -89,9 +89,10 @@ export const beraBunnyFactoryAddress = {
   4002: '0xD7c6BE9b454C9a0fCd45462C0317F5e7fe630Fe9',
 }
 
-export const beraMasterChefV3Address = {
+export const xyzkMasterChefV3Address = {
   4002: '0x70F3Db6104306c739Ee3fddc4cAbF1EE36fE9108',
   56: '0x556B9306565093C855AEA9AE92A594704c2Cd59e',
+  [lineaTestnet.id]: '0xA59788bE88b62350bDF811b80c312FC52dc66206',
 }
 
 export const beraSleepBunniesAddress = {

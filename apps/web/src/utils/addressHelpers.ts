@@ -1,11 +1,11 @@
 import { ChainId } from '@pancakeswap/sdk'
 import {
   beraBunnyFactoryAddress,
-  beraMasterChefV3Address,
   beraMulticallAddress,
   beraSleepBunniesAddress,
   beraSleepProfileAddress,
   ftmTest,
+  xyzkMasterChefV3Address,
 } from 'config/chains'
 import { linea, lineaTestnet } from '@xyzk/wagmi-chains'
 import addresses from 'config/constants/contracts'
@@ -53,7 +53,7 @@ export const getBeraBunnyFactoryAddress = (chainId: number = ftmTest.chainId) =>
   return beraBunnyFactoryAddress[chainId]
 }
 export const getBeraMasterChefV3Address = (chainId: number = lineaTestnet.id) => {
-  return beraMasterChefV3Address[chainId]
+  return xyzkMasterChefV3Address[chainId]
 }
 export const getPredictionsV1Address = () => {
   return getAddress(addresses.predictionsV1)

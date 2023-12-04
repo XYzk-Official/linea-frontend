@@ -9,7 +9,7 @@ import { useMMLinkedPoolByDefault } from 'state/user/mmLinkedPool'
 
 import { isAddress } from 'utils'
 
-import { useAccount } from 'wagmi'
+import { useAccount } from '@xyzk/wagmi'
 import { getMMOrderBook } from '../apis'
 import { MMOrderBookTrade, OrderBookRequest, OrderBookResponse, TradeWithMM } from '../types'
 import { parseMMTrade } from '../utils/exchange'

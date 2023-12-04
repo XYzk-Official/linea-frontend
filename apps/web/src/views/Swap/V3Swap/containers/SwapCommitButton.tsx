@@ -41,7 +41,7 @@ import { useSwapActionHandlers } from 'state/swap/useSwapActionHandlers'
 import useTransactionDeadline from 'hooks/useTransactionDeadline'
 import { useRoutingSettingChanged } from 'state/user/smartRouter'
 
-import { useAccount } from 'wagmi'
+import { useAccount } from '@xyzk/wagmi'
 import ProgressSteps from '../../components/ProgressSteps'
 import { SwapCallbackError } from '../../components/styleds'
 import { useSlippageAdjustedAmounts, useSwapInputError, useParsedAmounts, useSwapCallback } from '../hooks'

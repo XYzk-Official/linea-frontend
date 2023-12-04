@@ -3,7 +3,7 @@ import { MutableRefObject, useDeferredValue, useEffect, useMemo, useState } from
 import { useDebounce } from '@pancakeswap/hooks'
 import { Field } from 'state/swap/actions'
 import { useQuery } from '@tanstack/react-query'
-import { useAccount } from 'wagmi'
+import { useAccount } from '@xyzk/wagmi'
 import { getRFQById, MMError, sendRFQAndGetRFQId } from '../apis'
 import { MessageType, MMRfqTrade, QuoteRequest, RFQResponse } from '../types'
 import { parseMMTrade } from '../utils/exchange'

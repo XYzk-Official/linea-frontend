@@ -4,7 +4,7 @@ import { PositionDetails } from '@pancakeswap/farms'
 import { useActiveChainId } from 'hooks/useActiveChainId'
 import { useMasterchefV3, useV3NFTPositionManagerContract } from 'hooks/useContract'
 import { useEffect, useMemo } from 'react'
-import { useContractRead, useContractReads } from 'wagmi'
+import { useContractRead, useContractReads } from '@xyzk/wagmi'
 
 interface UseV3PositionsResults {
   loading: boolean

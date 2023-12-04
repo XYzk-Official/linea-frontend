@@ -10,7 +10,7 @@ import { useOfficialsAndUserAddedTokens } from 'hooks/Tokens'
 import useSWR from 'swr'
 import { useActiveChainId } from 'hooks/useActiveChainId'
 import { isAddress } from 'utils'
-import { useFeeData, useSigner } from 'wagmi'
+import { useFeeData, useSigner } from '@xyzk/wagmi'
 
 import { AppState, useAppDispatch } from 'state'
 import {

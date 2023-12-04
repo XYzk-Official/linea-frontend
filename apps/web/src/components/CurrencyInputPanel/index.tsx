@@ -22,7 +22,7 @@ import { useStablecoinPriceAmount } from 'hooks/useBUSDPrice'
 import { formatNumber } from '@pancakeswap/utils/formatBalance'
 import { StablePair } from 'views/AddLiquidity/AddStableLiquidity/hooks/useStableLPDerivedMintInfo'
 
-import { useAccount } from 'wagmi'
+import { useAccount } from '@xyzk/wagmi'
 import { useCurrencyBalance } from '../../state/wallet/hooks'
 import CurrencySearchModal from '../SearchModal/CurrencySearchModal'
 import { CurrencyLogo, DoubleCurrencyLogo } from '../Logo'

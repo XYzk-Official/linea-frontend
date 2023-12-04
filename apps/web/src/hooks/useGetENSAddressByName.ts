@@ -1,6 +1,6 @@
 import { ChainId } from '@pancakeswap/sdk'
 import { useActiveChainId } from 'hooks/useActiveChainId'
-import { useEnsAddress } from 'wagmi'
+import { useEnsAddress } from '@xyzk/wagmi'
 
 const ENS_NAME_REGEX = /^[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&/=]*)?$/
 
