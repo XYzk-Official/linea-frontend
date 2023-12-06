@@ -40,6 +40,15 @@ export interface IBlockChainData {
   decimal: number
 }
 
+export enum LineaChainId {
+  ETHEREUM = 1,
+  GOERLI = 5,
+  BSC = 56,
+  BSC_TESTNET = 97,
+  LINEA_TESTNET = 59140,
+  LINEA_MAINNET = 59144,
+}
+
 export const ftmTest: IBlockChainData = {
   chainId: 4002,
   rpc: 'https://rpc.testnet.fantom.network',
