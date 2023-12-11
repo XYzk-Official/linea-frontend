@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { useAccount } from 'wagmi'
+import { useAccount } from '@xyzk/wagmi'
 import {
   Box,
   Card,

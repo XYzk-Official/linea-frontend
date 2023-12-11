@@ -1,5 +1,5 @@
 import useSWR from 'swr'
-import { useAccount } from 'wagmi'
+import { useAccount } from '@xyzk/wagmi'
 import { Ifo, PoolIds } from 'config/constants/types'
 import { ifosConfig, FAST_INTERVAL } from 'config/constants'
 import BigNumber from 'bignumber.js'

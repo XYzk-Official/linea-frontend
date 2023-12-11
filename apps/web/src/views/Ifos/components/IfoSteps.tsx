@@ -22,7 +22,7 @@ import {
   TooltipText,
   useTooltip,
 } from '@pancakeswap/uikit'
-import { useAccount } from 'wagmi'
+import { useAccount } from '@xyzk/wagmi'
 
 import { useTranslation } from '@pancakeswap/localization'
 import useTokenBalance from 'hooks/useTokenBalance'
