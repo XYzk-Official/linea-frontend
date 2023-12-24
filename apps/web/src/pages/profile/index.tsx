@@ -1,4 +1,4 @@
-import { useAccount } from 'wagmi'
+import { useAccount } from '@xyzk/wagmi'
 import { useRouter } from 'next/router'
 import { useEffect } from 'react'
 import { nftsBaseUrl } from 'views/Nft/market/constants'

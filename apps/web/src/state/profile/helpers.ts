@@ -1,14 +1,13 @@
 import { Profile } from 'state/types'
-import { PancakeProfile } from 'config/abi/types/PancakeProfile'
-import profileABI from 'config/abi/pancakeProfile.json'
+import { XyzkProfile } from 'config/abi/types/XyzkProfile'
+import profileABI from 'config/abi/xyzkProfile.json'
 import { API_PROFILE } from 'config/constants/endpoints'
 import { getTeam } from 'state/teams/helpers'
 import { NftToken } from 'state/nftMarket/types'
-import { getBeraNftApi, getNftApi } from 'state/nftMarket/helpers'
-import { multicallv2 } from 'utils/multicall'
-import { getBeraSleepProfileAddress, getPancakeProfileAddress } from 'utils/addressHelpers'
-import { beraMulticallv2 } from 'config/fn'
-import { BERA_API } from 'config/chains'
+import { getXYzKNftApi } from 'state/nftMarket/helpers'
+import { getXYzKProfileAddress } from 'utils/addressHelpers'
+import { xyzkMulticallv2 } from 'config/fn'
+import { XYZK_API } from 'config/chains'
 
 export interface GetProfileResponse {
   hasRegistered: boolean
@@ -16,7 +15,7 @@ export interface GetProfileResponse {
 }
 
 const transformProfileResponse = (
-  profileResponse: Awaited<ReturnType<PancakeProfile['getUserProfile']>>,
+  profileResponse: Awaited<ReturnType<XyzkProfile['getUserProfile']>>,
 ): Partial<Profile> => {
   const { 0: userId, 1: numberPoints, 2: teamId, 3: collectionAddress, 4: tokenId, 5: isActive } = profileResponse
 
@@ -46,9 +45,9 @@ export const getUsername = async (address: string): Promise<string> => {
   }
 }
 
-export const getBeraUsername = async (address: string): Promise<string> => {
+export const getXYzKUsername = async (address: string): Promise<string> => {
   try {
-    const response = await fetch(`${BERA_API}/api/v1/profile/${address.toLowerCase()}`)
+    const response = await fetch(`${XYZK_API}/api/v1/profile/${address.toLowerCase()}`)
 
     if (!response.ok) {
       return ''
@@ -65,9 +64,9 @@ export const getBeraUsername = async (address: string): Promise<string> => {
 export const getProfile = async (address: string): Promise<GetProfileResponse> => {
   try {
     const profileCalls = ['hasRegistered', 'getUserProfile'].map((method) => {
-      return { address: getBeraSleepProfileAddress(), name: method, params: [address] }
+      return { address: getXYzKProfileAddress(), name: method, params: [address] }
     })
-    const profileCallsResult = await beraMulticallv2({
+    const profileCallsResult = await xyzkMulticallv2({
       abi: profileABI,
       calls: profileCalls,
       options: { requireSuccess: false },
@@ -83,8 +82,8 @@ export const getProfile = async (address: string): Promise<GetProfileResponse> =
     console.log('isActive', isActive)
     const [team, username, nftRes] = await Promise.all([
       getTeam(teamId),
-      getBeraUsername(address),
-      isActive ? getBeraNftApi(collectionAddress, tokenId.toString()) : Promise.resolve(null),
+      getXYzKUsername(address),
+      isActive ? getXYzKNftApi(collectionAddress, tokenId.toString()) : Promise.resolve(null),
     ])
     let nftToken: NftToken
     console.log('🚀 ~ file: helpers.ts:85 ~ getProfile ~ nftRes:', nftRes)

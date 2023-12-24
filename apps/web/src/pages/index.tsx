@@ -3,9 +3,9 @@ import { getUnixTime, sub } from 'date-fns'
 import { gql } from 'graphql-request'
 import { GetStaticProps } from 'next'
 import { SWRConfig } from 'swr'
-import { cakeVaultV2Address, ftmTest } from 'config/chains'
-import { getCakeVaultAddress } from 'utils/addressHelpers'
-import { getBeraSleepPoolAddress, getBeraSleepTokenContract, getCakeContract } from 'utils/contractHelpers'
+import { APP_CHAIN_ID } from 'config/chains'
+// import { getCakeVaultAddress } from 'utils/addressHelpers'
+import { getXYzKPoolAddress, getXYzKTokenContract } from 'utils/contractHelpers'
 import { getBlocksFromTimestamps } from 'utils/getBlocksFromTimestamps'
 import { bitQueryServerClient, infoServerClient } from 'utils/graphql'
 import Home from '../views/Home'
@@ -113,9 +113,9 @@ export const getStaticProps: GetStaticProps = async () => {
     `)
     const cake = await (await fetch('https://farms-api.pancakeswap.com/price/cake')).json()
     const { totalLiquidityUSD } = result.pancakeFactories[0]
-    const cakeVaultV2 = getBeraSleepPoolAddress()
-    const cakeContract = getBeraSleepTokenContract(undefined, ftmTest.chainId)
-    const totalCakeInVault = await cakeContract.balanceOf(cakeVaultV2)
+    const cakeVaultV2 = getXYzKPoolAddress()
+    const xyzkTokenContract = getXYzKTokenContract(undefined, APP_CHAIN_ID)
+    const totalCakeInVault = await xyzkTokenContract.balanceOf(cakeVaultV2)
     results.tvl = parseFloat(formatEther(totalCakeInVault)) * cake.price + parseFloat(totalLiquidityUSD)
   } catch (error) {
     if (process.env.NODE_ENV === 'production') {

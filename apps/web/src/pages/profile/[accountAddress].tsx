@@ -1,11 +1,11 @@
-import { useAccount } from 'wagmi'
+import { useAccount } from '@xyzk/wagmi'
 import { useRouter } from 'next/router'
 import { useProfileForAddress } from 'state/profile/hooks'
 import { NftProfileLayout } from 'views/Profile'
 import SubMenu from 'views/Profile/components/SubMenu'
 import UnconnectedProfileNfts from 'views/Profile/components/UnconnectedProfileNfts'
 import UserNfts from 'views/Profile/components/UserNfts'
-import { useBeraNftsForAddress, useNftsForAddress } from 'views/Nft/market/hooks/useNftsForAddress'
+import { useXYzKNftsForAddress, useNftsForAddress } from 'views/Nft/market/hooks/useNftsForAddress'
 
 const NftProfilePage = () => {
   const { address: account } = useAccount()
@@ -25,7 +25,7 @@ const NftProfilePage = () => {
     nfts,
     isLoading: isNftLoading,
     refresh: refreshUserNfts,
-  } = useBeraNftsForAddress(accountAddress, profile, isProfileFetching)
+  } = useXYzKNftsForAddress(accountAddress, profile, isProfileFetching)
   console.log('🚀 ~ file: [accountAddress].tsx:29 ~ NftProfilePage ~ nfts:', nfts)
 
   return (

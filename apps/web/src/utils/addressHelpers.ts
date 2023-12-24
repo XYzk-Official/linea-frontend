@@ -1,11 +1,11 @@
 import { ChainId } from '@pancakeswap/sdk'
 import {
-  beraBunnyFactoryAddress,
-  beraMulticallAddress,
-  beraSleepBunniesAddress,
-  beraSleepProfileAddress,
-  ftmTest,
+  APP_CHAIN_ID,
+  xyzkBunniesAddress,
+  xyzkBunnyFactoryAddress,
   xyzkMasterChefV3Address,
+  xyzkMulticallAddress,
+  xyzkProfileAddress,
 } from 'config/chains'
 import { linea, lineaTestnet } from '@xyzk/wagmi-chains'
 import addresses from 'config/constants/contracts'
@@ -34,14 +34,14 @@ export const getLotteryV2Address = () => {
 export const getPancakeProfileAddress = () => {
   return getAddress(addresses.pancakeProfile)
 }
-export const getBeraSleepProfileAddress = (chainId: number = ftmTest.chainId) => {
-  return beraSleepProfileAddress[chainId]
+export const getXYzKProfileAddress = (chainId: number = APP_CHAIN_ID) => {
+  return xyzkProfileAddress[chainId]
 }
-export const getBeraMulticallAddress = (chainId: number = ftmTest.chainId) => {
-  return beraMulticallAddress[chainId]
+export const getXYzKMulticallAddress = (chainId: number = APP_CHAIN_ID) => {
+  return xyzkMulticallAddress[chainId]
 }
-export const getBeraSleepBunniesAddress = (chainId: number = ftmTest.chainId) => {
-  return beraSleepBunniesAddress[chainId]
+export const getXYzKBunniesAddress = (chainId: number = APP_CHAIN_ID) => {
+  return xyzkBunniesAddress[chainId]
 }
 export const getPancakeBunniesAddress = () => {
   return getAddress(addresses.pancakeBunnies)
@@ -49,12 +49,15 @@ export const getPancakeBunniesAddress = () => {
 export const getBunnyFactoryAddress = () => {
   return getAddress(addresses.bunnyFactory)
 }
-export const getBeraBunnyFactoryAddress = (chainId: number = ftmTest.chainId) => {
-  return beraBunnyFactoryAddress[chainId]
+// export const getBeraBunnyFactoryAddress = (chainId: number = ftmTest.chainId) => {
+//  return beraBunnyFactoryAddress[chainId]
+// }
+export const getXYzKBunnyFactoryAddress = (chainId: number = APP_CHAIN_ID) => {
+  return xyzkBunnyFactoryAddress[chainId]
 }
-export const getBeraMasterChefV3Address = (chainId: number = lineaTestnet.id) => {
-  return xyzkMasterChefV3Address[chainId]
-}
+// export const getBeraMasterChefV3Address = (chainId: number = lineaTestnet.id) => {
+//  return xyzkMasterChefV3Address[chainId]
+// }
 export const getPredictionsV1Address = () => {
   return getAddress(addresses.predictionsV1)
 }
@@ -144,6 +147,10 @@ export const getStableSwapNativeHelperAddress = (chainId?: number) => {
 
 export const getMasterChefV3Address = (chainId?: number) => {
   return getAddress(addresses.masterChefV3, chainId)
+}
+
+export const getXYzKMasterChefV3Address = (chainId: number = APP_CHAIN_ID) => {
+  return xyzkMasterChefV3Address[chainId]
 }
 
 export const getV3MigratorAddress = (chainId?: number) => {

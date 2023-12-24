@@ -11,12 +11,12 @@ import {
   useToast,
   NextLinkFromReactRouter,
 } from '@pancakeswap/uikit'
-import { useAccount, useSigner } from 'wagmi'
-import { getBeraSleepProfileAddress } from 'utils/addressHelpers'
+import { useAccount, useSigner } from '@xyzk/wagmi'
+import { getXYzKProfileAddress } from 'utils/addressHelpers'
 import { getErc721Contract } from 'utils/contractHelpers'
 import { useTranslation } from '@pancakeswap/localization'
-import { beraMulticall } from 'config/fn'
-import { useBeraBunniesContract, useBeraProfileContract } from 'hooks/useContract'
+import { xyzkMulticall } from 'config/fn'
+import { useXYzKBunniesContract, useXYzKProfileContract } from 'hooks/useContract'
 import { useCallWithGasPrice } from 'hooks/useCallWithGasPrice'
 import useCatchTxError from 'hooks/useCatchTxError'
 import { nftsBaseUrl } from 'views/Nft/market/constants'
@@ -25,9 +25,8 @@ import { useProfile } from 'state/profile/hooks'
 import SelectionCard from './SelectionCard'
 import NextStepButton from './NextStepButton'
 import { ProfileCreationContext } from './contexts/ProfileCreationProvider'
-import multicall from '../../utils/multicall'
 import profileABI from '../../config/abi/pancakeProfile.json'
-import { useBeraNftsForAddress } from '../Nft/market/hooks/useNftsForAddress'
+import { useXYzKNftsForAddress } from '../Nft/market/hooks/useNftsForAddress'
 
 const Link = styled(NextLinkFromReactRouter)`
   color: ${({ theme }) => theme.colors.primary};
@@ -42,14 +41,14 @@ const ProfilePicture: React.FC = () => {
   const [isApproved, setIsApproved] = useState(false)
   const [isProfileNftsLoading, setIsProfileNftsLoading] = useState(true)
   const [userProfileCreationNfts, setUserProfileCreationNfts] = useState(null)
-  const bunnyContract = useBeraBunniesContract()
+  const bunnyContract = useXYzKBunniesContract()
   const { selectedNft, actions } = useContext(ProfileCreationContext)
   console.log('🚀 ~ file: ProfilePicture.tsx:45 ~ selectedNft:', selectedNft)
 
-  const profileContract = useBeraProfileContract(false)
+  const profileContract = useXYzKProfileContract(false)
   const { isLoading: isProfileLoading, profile } = useProfile()
   console.log('🚀 ~ file: ProfilePicture.tsx:50 ~ profile:', profile)
-  const { nfts, isLoading: isUserNftLoading } = useBeraNftsForAddress(account, profile, isProfileLoading)
+  const { nfts, isLoading: isUserNftLoading } = useXYzKNftsForAddress(account, profile, isProfileLoading)
   console.log('🚀 ~ file: ProfilePicture.tsx:51 ~ nfts:', nfts)
 
   useEffect(() => {
@@ -75,7 +74,7 @@ const ProfilePicture: React.FC = () => {
               params: [nftRole, collectionAddress],
             }
           })
-          const collectionRolesRaw = await beraMulticall(profileABI, collectionsNftRoleCalls)
+          const collectionRolesRaw = await xyzkMulticall(profileABI, collectionsNftRoleCalls)
           console.log(
             '🚀 ~ file: ProfilePicture.tsx:78 ~ fetchUserPancakeCollectibles ~ collectionRolesRaw:',
             collectionRolesRaw,
@@ -108,8 +107,8 @@ const ProfilePicture: React.FC = () => {
     const checkNftIsAprrove = async () => {
       if (selectedNft?.tokenId) {
         const nftApprovedAddress = await bunnyContract.getApproved(selectedNft.tokenId)
-        const beraSleepProfileAddress = getBeraSleepProfileAddress()
-        if (nftApprovedAddress === beraSleepProfileAddress) {
+        const xyzkProfileAddress = getXYzKProfileAddress()
+        if (nftApprovedAddress === xyzkProfileAddress) {
           setIsApproved(true)
         }
       }
@@ -126,7 +125,7 @@ const ProfilePicture: React.FC = () => {
   const handleApprove = async () => {
     const contract = getErc721Contract(selectedNft.collectionAddress, signer)
     const receipt = await fetchWithCatchTxError(() => {
-      return callWithGasPrice(contract, 'approve', [getBeraSleepProfileAddress(), selectedNft.tokenId])
+      return callWithGasPrice(contract, 'approve', [getXYzKProfileAddress(), selectedNft.tokenId])
     })
     if (receipt?.status) {
       toastSuccess(t('Enabled'), t('Please progress to the next step.'))

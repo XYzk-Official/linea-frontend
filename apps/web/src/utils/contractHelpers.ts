@@ -36,9 +36,9 @@ import {
   getMasterChefV3Address,
   getV3MigratorAddress,
   getV3AirdropAddress,
-  getBeraMasterChefV3Address,
-  getBeraSleepProfileAddress,
-  getBeraSleepBunniesAddress,
+  getXYzKProfileAddress,
+  getXYzKBunniesAddress,
+  getXYzKMasterChefV3Address,
 } from 'utils/addressHelpers'
 
 // ABI
@@ -48,6 +48,7 @@ import bep20Abi from 'config/abi/erc20.json'
 import erc721Abi from 'config/abi/erc721.json'
 import lpTokenAbi from 'config/abi/lpToken.json'
 import cakeAbi from 'config/abi/cake.json'
+import xyzkTokenAbi from 'config/abi/xyzkToken.json'
 import ifoV1Abi from 'config/abi/ifoV1.json'
 import ifoV2Abi from 'config/abi/ifoV2.json'
 import pointCenterIfo from 'config/abi/pointCenterIfo.json'
@@ -91,6 +92,8 @@ import v3MigratorAbi from 'config/abi/v3Migrator.json'
 import V3AirdropAbi from 'config/abi/v3Airdrop.json'
 import beraProfile from 'config/abi/beraProfile.json'
 import beraBunnies from 'config/abi/beraSleepBunnies.json'
+import xyzkProfileAbi from 'config/abi/xyzkProfile.json'
+import xyzkBunniesAbi from 'config/abi/xyzkBunnies.json'
 
 // Types
 import type {
@@ -139,12 +142,21 @@ import type {
   V3Migrator,
   V3Airdrop,
   UNS,
-  Bera,
   BeraProfile,
   BeraSleepBunnies,
+  XyzkToken,
+  XyzkProfile,
+  XyzkBunnies,
 } from 'config/abi/types'
 import { ChainId } from '@pancakeswap/sdk'
-import { beraTokenAddress, cakeVaultV2Address, ftmTest, newProvider } from 'config/chains'
+import {
+  APP_CHAIN_ID,
+  cakeVaultV2Address,
+  ftmTest,
+  newProvider,
+  xyzkTokenAddress,
+  xyzkVaultV2Address,
+} from 'config/chains'
 
 export const getContract = ({
   abi,
@@ -180,14 +192,15 @@ export const getIfoV3Contract = (address: string, signer?: Signer | Provider) =>
   return getContract({ abi: ifoV3Abi, address, signer })
 }
 
-export const getBeraSleepPoolAddress = (chainId?: number) => {
-  return cakeVaultV2Address[chainId ?? ftmTest.chainId]
+export const getXYzKPoolAddress = (chainId?: number) => {
+  return xyzkVaultV2Address[chainId ?? APP_CHAIN_ID]
 }
 
-export const getBeraSleepTokenContract = (signer?: Signer | Provider, chainId?: number) => {
-  const beraAddress = beraTokenAddress[chainId ?? ftmTest.chainId]
-  const ftmProvider = new ethers.providers.StaticJsonRpcProvider(ftmTest.rpc)
-  return new ethers.Contract(beraAddress, cakeAbi, ftmProvider) as Bera
+export const getXYzKTokenContract = (signer?: Signer | Provider, chainId?: number) => {
+  const appChainId = chainId ?? APP_CHAIN_ID
+  const tokenAddress = xyzkTokenAddress[appChainId]
+  const contractProvider = newProvider[appChainId]
+  return new ethers.Contract(tokenAddress, cakeAbi, contractProvider) as XyzkToken
 }
 
 export const getPointCenterIfoContract = (signer?: Signer | Provider) => {
@@ -195,21 +208,21 @@ export const getPointCenterIfoContract = (signer?: Signer | Provider) => {
 }
 export const getCakeContract = (signer?: Signer | Provider, chainId?: number) => {
   return getContract({
-    abi: cakeAbi,
-    address: chainId ? CAKE[chainId].address : CAKE[ChainId.BSC].address,
+    abi: xyzkTokenAbi,
+    address: xyzkTokenAddress[chainId ?? APP_CHAIN_ID],
     signer,
-  }) as Cake
+  }) as XyzkToken
 }
 export const getProfileContract = (signer?: Signer | Provider) => {
   return getContract({ abi: profileABI, address: getPancakeProfileAddress(), signer }) as PancakeProfile
 }
 
-export const getBeraProfileContract = (signer?: Signer | Provider, chainId?: number) => {
-  return getContract({ abi: beraProfile, address: getBeraSleepProfileAddress(chainId), signer }) as BeraProfile
+export const getXYzKProfileContract = (signer?: Signer | Provider, chainId: number = APP_CHAIN_ID) => {
+  return getContract({ abi: xyzkProfileAbi, address: getXYzKProfileAddress(chainId), signer }) as XyzkProfile
 }
 
-export const getBeraBunniesContract = (signer?: Signer | Provider, chainId?: number) => {
-  return getContract({ abi: beraBunnies, address: getBeraSleepBunniesAddress(chainId), signer }) as BeraSleepBunnies
+export const getXYzKBunniesContract = (signer?: Signer | Provider, chainId?: number) => {
+  return getContract({ abi: xyzkBunniesAbi, address: getXYzKBunniesAddress(chainId), signer }) as XyzkBunnies
 }
 
 export const getBunnyFactoryContract = (signer?: Signer | Provider) => {
@@ -394,9 +407,14 @@ export const getMasterChefV3Contract = (signer?: Signer | Provider, chainId?: nu
   }) as MasterChefV3
 }
 
-export const getBeraMasterChefV3Contract = (chainId?: number) => {
-  const beraMasterChefV3Address = getBeraMasterChefV3Address(chainId)
-  return new ethers.Contract(beraMasterChefV3Address, masterChefV3Abi, newProvider[chainId])
+// export const getBeraMasterChefV3Contract = (chainId?: number) => {
+//  const beraMasterChefV3Address = getBeraMasterChefV3Address(chainId)
+//  return new ethers.Contract(beraMasterChefV3Address, masterChefV3Abi, newProvider[chainId])
+// }
+
+export const getXYzKMasterChefV3Contract = (chainId: number = APP_CHAIN_ID) => {
+  const xyzkMasterChefV3Address = getXYzKMasterChefV3Address(chainId)
+  return new ethers.Contract(xyzkMasterChefV3Address, masterChefV3Abi, newProvider[chainId])
 }
 
 export const getV3MigratorContract = (signer?: Signer | Provider, chainId?: number) => {

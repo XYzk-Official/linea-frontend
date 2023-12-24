@@ -17,7 +17,7 @@ import QuoterV2Abi from 'config/abi/QuoterV2.json'
 import zapAbi from 'config/abi/zap.json'
 import NFTPositionManagerABI from 'config/abi/nftPositionManager.json'
 import addresses from 'config/constants/contracts'
-import { useBeraProviderOrSigner, useProviderOrSigner } from 'hooks/useProviderOrSigner'
+import { useProviderOrSigner, useXYzKProviderOrSigner } from 'hooks/useProviderOrSigner'
 import { useMemo } from 'react'
 import { getMulticallAddress, getPredictionsV1Address, getZapAddress } from 'utils/addressHelpers'
 import {
@@ -63,11 +63,13 @@ import {
   getMasterChefV3Contract,
   getV3AirdropContract,
   getUnsContract,
-  getBeraMasterChefV3Contract,
-  getBeraProfileContract,
-  getBeraBunniesContract,
+  getXYzKMasterChefV3Contract,
+  getXYzKProfileContract,
+  getXYzKBunniesContract,
+  // getBeraProfileContract,
+  // getBeraBunniesContract,
 } from 'utils/contractHelpers'
-import { useSigner } from 'wagmi'
+import { useSigner } from '@xyzk/wagmi'
 
 // Imports below migrated from Exchange useContract.ts
 import { Contract } from 'ethers'
@@ -79,7 +81,7 @@ import multiCallAbi from 'config/abi/Multicall.json'
 import WETH_ABI from 'config/abi/weth.json'
 import WBETH_BSC_ABI from 'config/abi/wbethBSC.json'
 import WBETH_ETH_ABI from 'config/abi/wbethETH.json'
-import { getBeraBunnyFactoryContract, getBeraTokenContract } from 'config/chains'
+import { getXYzKBunnyFactoryContract, getXYzKTokenContract } from 'config/chains'
 import { getContract } from 'utils'
 
 import { WBETH } from 'config/constants/liquidStaking'
@@ -129,12 +131,12 @@ export const useCake = (): { reader: Cake; signer: Cake } => {
   )
 }
 
-export const useBera = (): { reader: Bera; signer: Bera } => {
-  const providerOrSigner = useBeraProviderOrSigner(true)
+export const useXYzK = (): { reader: Bera; signer: Bera } => {
+  const providerOrSigner = useXYzKProviderOrSigner(true)
   return useMemo(
     () => ({
-      reader: getBeraTokenContract(),
-      signer: getBeraTokenContract(undefined, providerOrSigner),
+      reader: getXYzKTokenContract(),
+      signer: getXYzKTokenContract(undefined, providerOrSigner),
     }),
     [providerOrSigner],
   )
@@ -145,9 +147,9 @@ export const useBunnyFactory = () => {
   return useMemo(() => getBunnyFactoryContract(signer), [signer])
 }
 
-export const useBeraBunnyFactory = () => {
+export const useXYzKBunnyFactory = () => {
   const { data: signer } = useSigner()
-  return useMemo(() => getBeraBunnyFactoryContract(undefined, signer), [signer])
+  return useMemo(() => getXYzKBunnyFactoryContract(undefined, signer), [signer])
 }
 
 export const useProfileContract = (withSignerIfPossible = true) => {
@@ -155,14 +157,14 @@ export const useProfileContract = (withSignerIfPossible = true) => {
   return useMemo(() => getProfileContract(providerOrSigner), [providerOrSigner])
 }
 
-export const useBeraProfileContract = (withSignerIfPossible = true) => {
-  const providerOrSigner = useBeraProviderOrSigner(withSignerIfPossible)
-  return useMemo(() => getBeraProfileContract(providerOrSigner), [providerOrSigner])
+export const useXYzKProfileContract = (withSignerIfPossible = true) => {
+  const providerOrSigner = useXYzKProviderOrSigner(withSignerIfPossible)
+  return useMemo(() => getXYzKProfileContract(providerOrSigner), [providerOrSigner])
 }
 
-export const useBeraBunniesContract = (withSignerIfPossible = true) => {
-  const providerOrSigner = useBeraProviderOrSigner(withSignerIfPossible)
-  return useMemo(() => getBeraBunniesContract(providerOrSigner), [providerOrSigner])
+export const useXYzKBunniesContract = (withSignerIfPossible = true) => {
+  const providerOrSigner = useXYzKProviderOrSigner(withSignerIfPossible)
+  return useMemo(() => getXYzKBunniesContract(providerOrSigner), [providerOrSigner])
 }
 
 export const useLotteryV2Contract = () => {
@@ -315,8 +317,8 @@ export function useTokenContract(tokenAddress?: string, withSignerIfPossible?: b
   return useContract<Erc20>(tokenAddress, ERC20_ABI, withSignerIfPossible)
 }
 
-export function useBeraContract() {
-  return getBeraTokenContract()
+export function useXYzKContract() {
+  return getXYzKTokenContract()
 }
 
 export function useWNativeContract(withSignerIfPossible?: boolean): Contract | null {
@@ -425,9 +427,14 @@ export function useMasterchefV3(withSignerIfPossible?: boolean) {
   return useMemo(() => getMasterChefV3Contract(providerOrSigner, chainId), [chainId, providerOrSigner])
 }
 
-export const useBeraMasterChefV3 = () => {
+// export const useBeraMasterChefV3 = () => {
+//  const { chainId } = useActiveChainId()
+//  return useMemo(() => getXYzKMasterChefV3Contract(chainId), [chainId])
+// }
+
+export const useXYzKMasterChefV3 = () => {
   const { chainId } = useActiveChainId()
-  return useMemo(() => getBeraMasterChefV3Contract(chainId), [chainId])
+  return useMemo(() => getXYzKMasterChefV3Contract(chainId), [chainId])
 }
 
 export function useV3MigratorContract() {

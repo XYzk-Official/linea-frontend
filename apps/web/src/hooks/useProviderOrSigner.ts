@@ -16,7 +16,7 @@ export const useProviderOrSigner = (withSignerIfPossible = true, forceBSC?: bool
   )
 }
 
-export const useBeraProviderOrSigner = (withSignerIfPossible = true) => {
+export const useXYzKProviderOrSigner = (withSignerIfPossible = true) => {
   const { chainId } = useActiveChainId()
   const provider = newProvider[chainId]
   const { address, isConnected } = useAccount()

@@ -1,7 +1,7 @@
-import { BERA_API } from 'config/chains'
+import { XYZK_API } from 'config/chains'
 import { BigNumber, Contract } from 'ethers'
 import { formatBigNumber } from '@pancakeswap/utils/formatBalance'
-import { beraMulticallv2 } from 'config/fn'
+import { xyzkMulticallv2 } from 'config/fn'
 import erc721Abi from 'config/abi/erc721.json'
 import nftMarketAbi from 'config/abi/nftMarket.json'
 import { NOT_ON_SALE_SELLER } from 'config/constants'
@@ -16,7 +16,7 @@ import range from 'lodash/range'
 import lodashSize from 'lodash/size'
 import { stringify } from 'querystring'
 import { isAddress } from 'utils'
-import { getBeraSleepBunniesAddress, getNftMarketAddress } from 'utils/addressHelpers'
+import { getXYzKBunniesAddress, getNftMarketAddress } from 'utils/addressHelpers'
 import { getNftMarketContract } from 'utils/contractHelpers'
 import { multicallv2 } from 'utils/multicall'
 import { pancakeBunniesAddress } from 'views/Nft/market/constants'
@@ -212,11 +212,11 @@ export const getNftApi = async (
   return null
 }
 
-export const getBeraNftApi = async (
+export const getXYzKNftApi = async (
   collectionAddress: string,
   tokenId: string,
 ): Promise<ApiResponseSpecificToken['data']> => {
-  const res = await fetch(`${BERA_API}/api/v1/nft/${collectionAddress}/tokens/${tokenId}`)
+  const res = await fetch(`${XYZK_API}/api/v1/nft/${collectionAddress}/tokens/${tokenId}`)
   if (res.ok) {
     const json = await res.json()
     return json.data
@@ -1038,7 +1038,7 @@ export const fetchWalletTokenIdsForCollections = async (
   return walletNfts.concat(walletNftsWithWO.flat())
 }
 
-export const fetcBerahWalletTokenIdsForCollections = async (
+export const fetchXYzKWalletTokenIdsForCollections = async (
   account: string,
   collections: ApiCollections,
 ): Promise<TokenIdWithCollectionAddress[]> => {
@@ -1059,7 +1059,7 @@ export const fetcBerahWalletTokenIdsForCollections = async (
   })
   console.log('🚀 ~ file: helpers.ts:1060 ~ balanceOfCalls ~ balanceOfCalls:', balanceOfCalls)
 
-  const balanceOfCallsResultRaw = await beraMulticallv2({
+  const balanceOfCallsResultRaw = await xyzkMulticallv2({
     abi: erc721Abi,
     calls: balanceOfCalls,
     options: { requireSuccess: false },
@@ -1086,7 +1086,7 @@ export const fetcBerahWalletTokenIdsForCollections = async (
     .flat()
   console.log('🚀 ~ file: helpers.ts:1064 ~ tokenIdCalls:', tokenIdCalls)
 
-  const tokenIdResultRaw = await beraMulticallv2({
+  const tokenIdResultRaw = await xyzkMulticallv2({
     abi: erc721Abi,
     calls: tokenIdCalls,
     options: { requireSuccess: false },
@@ -1116,7 +1116,7 @@ export const fetcBerahWalletTokenIdsForCollections = async (
     })
   console.log('🚀 ~ file: helpers.ts:1094 ~ walletOfOwnerCalls:', walletOfOwnerCalls)
 
-  const walletOfOwnerCallResult = await beraMulticallv2({
+  const walletOfOwnerCallResult = await xyzkMulticallv2({
     abi: [
       {
         inputs: [{ internalType: 'address', name: '_owner', type: 'address' }],
@@ -1375,10 +1375,10 @@ export const getCompleteAccountNftData = async (
   return completeNftData
 }
 
-export const getBeraCompleteAccountNftData = async (
+export const getXYzKCompleteAccountNftData = async (
   account: string,
   collections: ApiCollections,
-  beraBunniesContract: Contract,
+  xyzkBunniesContract: Contract,
   profileNftWithCollectionAddress?: TokenIdWithCollectionAddress,
 ): Promise<NftToken[]> => {
   console.log('🚀 ~ file: helpers.ts:1361 ~ profileNftWithCollectionAddress:', profileNftWithCollectionAddress)
@@ -1386,7 +1386,7 @@ export const getBeraCompleteAccountNftData = async (
   const collectionsWithDelist = { ...collections, ...DELIST_COLLECTIONS }
 
   const [walletNftIdsWithCollectionAddress, onChainForSaleNfts] = await Promise.all([
-    fetcBerahWalletTokenIdsForCollections(account, collectionsWithDelist),
+    fetchXYzKWalletTokenIdsForCollections(account, collectionsWithDelist),
     getAccountNftsOnChainMarketData(collectionsWithDelist, account),
   ])
   console.log('🚀 ~ file: helpers.ts:1268 ~ walletNftIdsWithCollectionAddress:', walletNftIdsWithCollectionAddress)
@@ -1408,14 +1408,14 @@ export const getBeraCompleteAccountNftData = async (
   const tokenId = Object.values(walletMarketData).map((item) => item.tokenId)[0]
   if (tokenId) {
     console.log('tokenid', tokenId)
-    const bunnyName = await beraBunniesContract.getBunnyNameOfTokenId(tokenId)
+    const bunnyName = await xyzkBunniesContract.getBunnyNameOfTokenId(tokenId)
     console.log('bunnyName', bunnyName)
     switch (bunnyName.toLowerCase()) {
       case 'sleepy':
         return [
           {
-            collectionAddress: getBeraSleepBunniesAddress(),
-            collectionName: 'BeraSleepBunnies',
+            collectionAddress: getXYzKBunniesAddress(),
+            collectionName: 'XYzKBunnies',
             description: 'Aww, looks like eating bera all day is tough work. Sweet dreams!',
             image: {
               original:
@@ -1431,9 +1431,9 @@ export const getBeraCompleteAccountNftData = async (
       case 'dollop':
         return [
           {
-            collectionAddress: getBeraSleepBunniesAddress(),
-            collectionName: 'BeraSleepBunnies',
-            description: "Nommm... Oh hi, I'm just meditating on the meaning of BERA.",
+            collectionAddress: getXYzKBunniesAddress(),
+            collectionName: 'XYzKBunnies',
+            description: "Nommm... Oh hi, I'm just meditating on the meaning of XYzK.",
             image: {
               original:
                 'https://static-nft.pancakeswap.com/mainnet/0xDf7952B35f24aCF7fC0487D01c8d5690a60DBa07/dollop.png',
@@ -1448,8 +1448,8 @@ export const getBeraCompleteAccountNftData = async (
       case 'twinkle':
         return [
           {
-            collectionAddress: getBeraSleepBunniesAddress(),
-            collectionName: 'BeraSleepBunnies',
+            collectionAddress: getXYzKBunniesAddress(),
+            collectionName: 'XYzKBunnies',
             description: "Three guesses what's put that twinkle in those eyes! (Hint: it's BERA)",
             image: {
               original:
@@ -1465,9 +1465,9 @@ export const getBeraCompleteAccountNftData = async (
       case 'churro':
         return [
           {
-            collectionAddress: getBeraSleepBunniesAddress(),
-            collectionName: 'BeraSleepBunnies',
-            description: "Don't let that dopey smile deceive you... Churro's a master BERA chef!",
+            collectionAddress: getXYzKBunniesAddress(),
+            collectionName: 'XYzKBunnies',
+            description: "Don't let that dopey smile deceive you... Churro's a master XYzK chef!",
             image: {
               original:
                 'https://static-nft.pancakeswap.com/mainnet/0xDf7952B35f24aCF7fC0487D01c8d5690a60DBa07/churro.png',
@@ -1482,9 +1482,9 @@ export const getBeraCompleteAccountNftData = async (
       case 'sunny':
         return [
           {
-            collectionAddress: getBeraSleepBunniesAddress(),
-            collectionName: 'BeraSleepBunnies',
-            description: "Don't let that dopey smile deceive you... Churro's a master BERA chef!",
+            collectionAddress: getXYzKBunniesAddress(),
+            collectionName: 'XYzKBunnies',
+            description: "Don't let that dopey smile deceive you... Churro's a master XYzK chef!",
             image: {
               original:
                 'https://static-nft.pancakeswap.com/mainnet/0xDf7952B35f24aCF7fC0487D01c8d5690a60DBa07/sunny.png',

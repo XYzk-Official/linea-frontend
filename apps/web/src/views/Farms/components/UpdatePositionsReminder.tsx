@@ -7,7 +7,7 @@ import { BigNumber } from 'ethers'
 import { FormatTypes } from 'ethers/lib/utils'
 import { useActiveChainId } from 'hooks/useActiveChainId'
 import useCatchTxError from 'hooks/useCatchTxError'
-import { useBeraMasterChefV3, useMasterchefV3 } from 'hooks/useContract'
+import { useXYzKMasterChefV3 } from 'hooks/useContract'
 import useTransactionDeadline from 'hooks/useTransactionDeadline'
 import { useV3TokenIdsByAccount } from 'hooks/v3/useV3Positions'
 import { useMemo, useState } from 'react'
@@ -68,7 +68,7 @@ export function UpdatePositionsReminder_() {
   const { address: account } = useAccount()
   const { chainId } = useActiveChainId()
 
-  const masterchefV3 = useBeraMasterChefV3()
+  const masterchefV3 = useXYzKMasterChefV3()
   const { tokenIds: stakedTokenIds, loading } = useV3TokenIdsByAccount(masterchefV3, account)
 
   const stakedUserInfos = useContractReads({
@@ -142,7 +142,7 @@ export function UpdatePositionsReminder_() {
   const { toastSuccess } = useToast()
   const { loading: txLoading, fetchWithCatchTxError } = useCatchTxError()
 
-  const masterChefV3Address = useBeraMasterChefV3()?.address
+  const masterChefV3Address = useXYzKMasterChefV3()?.address
   const deadline = useTransactionDeadline() // custom from users settings
 
   const [triggerOnce, setTriggerOnce] = useState(false)

@@ -1,7 +1,7 @@
 import { createContext, useEffect, useMemo, useReducer } from 'react'
-import { useAccount } from 'wagmi'
+import { useAccount } from '@xyzk/wagmi'
 import { getBunnyFactoryContract } from 'utils/contractHelpers'
-import { getBeraBunnyFactoryContract } from 'config/chains'
+import { getXYzKBunnyFactoryContract } from 'config/chains'
 import { MINT_COST, REGISTER_COST, ALLOWANCE_MULTIPLIER } from '../config'
 import { Actions, State, ContextType } from './types'
 
@@ -68,7 +68,7 @@ const ProfileCreationProvider: React.FC<React.PropsWithChildren> = ({ children }
     let isSubscribed = true
 
     const fetchData = async () => {
-      const bunnyFactoryContract = getBeraBunnyFactoryContract()
+      const bunnyFactoryContract = getXYzKBunnyFactoryContract()
       const canMint = await bunnyFactoryContract.canMint(account)
       console.log('canMint', canMint)
       dispatch({ type: 'initialize', step: canMint ? 0 : 1 })

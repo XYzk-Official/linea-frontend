@@ -1,17 +1,17 @@
 import masterchefABI from 'config/abi/masterchef.json'
 import BigNumber from 'bignumber.js'
-import { multicallv2 } from 'utils/multicall'
+import { xyzkMulticallv2 } from 'config/fn'
 import { BIG_ZERO } from '@pancakeswap/utils/bigNumber'
-import { getMasterChefV3Address } from '../../utils/addressHelpers'
+import { getXYzKMasterChefV3Address } from '../../utils/addressHelpers'
 
 export const fetchMasterChefV3FarmPoolLength = async (chainId: number) => {
   try {
-    const [poolLength] = await multicallv2({
+    const [poolLength] = await xyzkMulticallv2({
       abi: masterchefABI,
       calls: [
         {
           name: 'poolLength',
-          address: getMasterChefV3Address(chainId),
+          address: getXYzKMasterChefV3Address(chainId),
         },
       ],
       chainId,

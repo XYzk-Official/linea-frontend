@@ -1,15 +1,15 @@
 import merge from 'lodash/merge'
 import teamsList from 'config/constants/teams'
-import { getBeraProfileContract, getProfileContract } from 'utils/contractHelpers'
+import { getXYzKProfileContract, getProfileContract } from 'utils/contractHelpers'
 import { Team } from 'config/constants/types'
 import { multicallv2 } from 'utils/multicall'
 import { TeamsById } from 'state/types'
 import profileABI from 'config/abi/pancakeProfile.json'
-import { getBeraSleepProfileAddress, getPancakeProfileAddress } from 'utils/addressHelpers'
+import { getXYzKProfileAddress, getPancakeProfileAddress } from 'utils/addressHelpers'
 import fromPairs from 'lodash/fromPairs'
-import { beraMulticallv2 } from 'config/fn'
+import { xyzkMulticallv2 } from 'config/fn'
 
-const profileContract = getBeraProfileContract()
+const profileContract = getXYzKProfileContract()
 
 export const getTeam = async (teamId: number): Promise<Team> => {
   try {
@@ -67,7 +67,7 @@ export const getTeams = async (): Promise<TeamsById> => {
   }
 }
 
-export const getBeraTeams = async (): Promise<TeamsById> => {
+export const getXYzKTeams = async (): Promise<TeamsById> => {
   try {
     const teamsById = fromPairs(teamsList.map((team) => [team.id, team]))
     const nbTeams = await profileContract.numberTeams()
@@ -75,12 +75,12 @@ export const getBeraTeams = async (): Promise<TeamsById> => {
     const calls = []
     for (let i = 1; i <= nbTeams.toNumber(); i++) {
       calls.push({
-        address: getBeraSleepProfileAddress(),
+        address: getXYzKProfileAddress(),
         name: 'getTeamProfile',
         params: [i],
       })
     }
-    const teamData = await beraMulticallv2({ abi: profileABI, calls })
+    const teamData = await xyzkMulticallv2({ abi: profileABI, calls })
     console.log('🚀 ~ file: helpers.ts:84 ~ getBeraTeams ~ teamData:', teamData)
 
     const onChainTeamData = fromPairs(

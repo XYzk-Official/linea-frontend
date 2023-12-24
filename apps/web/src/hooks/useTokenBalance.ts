@@ -10,7 +10,7 @@ import useSWR from 'swr'
 import { BIG_ZERO } from '@pancakeswap/utils/bigNumber'
 import { bscRpcProvider } from 'utils/providers'
 import { useWeb3React } from '@pancakeswap/wagmi'
-import { useBeraContract, useTokenContract } from './useContract'
+import { useTokenContract, useXYzKContract } from './useContract'
 import { useSWRContract } from './useSWRContract'
 
 const useTokenBalance = (tokenAddress: string, forceBSC?: boolean) => {
@@ -41,10 +41,10 @@ const useTokenBalance = (tokenAddress: string, forceBSC?: boolean) => {
   }
 }
 
-const useBeraTokenBalance = () => {
+const useXYzKTokenBalance = () => {
   const { address: account } = useAccount()
 
-  const contract = useBeraContract()
+  const contract = useXYzKContract()
 
   const key = useMemo(
     () =>
@@ -86,8 +86,8 @@ export const useGetCakeBalance = () => {
   return { balance: EthersBigNumber.from(balance.toString()), fetchStatus }
 }
 
-export const useGetBeraBalance = () => {
-  const { balance, fetchStatus } = useBeraTokenBalance()
+export const useGetXYzKBalance = () => {
+  const { balance, fetchStatus } = useXYzKTokenBalance()
   return { balance: EthersBigNumber.from(balance.toString()), fetchStatus }
 }
 

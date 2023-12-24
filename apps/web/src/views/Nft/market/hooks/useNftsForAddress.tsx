@@ -3,13 +3,13 @@ import isEmpty from 'lodash/isEmpty'
 import { useGetCollections } from 'state/nftMarket/hooks'
 import { NftLocation, ApiCollections } from 'state/nftMarket/types'
 import { Profile } from 'state/types'
-import { getBeraCompleteAccountNftData, getCompleteAccountNftData } from 'state/nftMarket/helpers'
+import { getXYzKCompleteAccountNftData, getCompleteAccountNftData } from 'state/nftMarket/helpers'
 import useSWR from 'swr'
 import { FetchStatus } from 'config/constants/types'
 import { usePreviousValue } from '@pancakeswap/hooks'
 import { isAddress } from 'utils'
-import { beraApiCollection } from 'config/chains'
-import { useBeraBunniesContract } from 'hooks/useContract'
+import { xyzkApiCollection } from 'config/chains'
+import { useXYzKBunniesContract } from 'hooks/useContract'
 
 export const useNftsForAddress = (account: string, profile: Profile, isProfileFetching: boolean) => {
   const { data: collections } = useGetCollections()
@@ -21,11 +21,11 @@ export const useNftsForAddress = (account: string, profile: Profile, isProfileFe
   return { nfts, isLoading, refresh }
 }
 
-export const useBeraNftsForAddress = (account: string, profile: Profile, isProfileFetching: boolean) => {
-  const collections = { ...beraApiCollection }
+export const useXYzKNftsForAddress = (account: string, profile: Profile, isProfileFetching: boolean) => {
+  const collections = { ...xyzkApiCollection }
   console.log('collections', collections)
 
-  const { nfts, isLoading, refresh } = useBeraCollectionsNftsForAddress(
+  const { nfts, isLoading, refresh } = useXYzKCollectionsNftsForAddress(
     account,
     profile,
     isProfileFetching,
@@ -79,7 +79,7 @@ export const useCollectionsNftsForAddress = (
   return { nfts: data ?? [], isLoading: status !== FetchStatus.Fetched, refresh: mutate }
 }
 
-export const useBeraCollectionsNftsForAddress = (
+export const useXYzKCollectionsNftsForAddress = (
   account: string,
   profile: Profile,
   isProfileFetching: boolean,
@@ -87,7 +87,7 @@ export const useBeraCollectionsNftsForAddress = (
 ) => {
   const resetLaggyRef = useRef(null)
   const previousAccount = usePreviousValue(account)
-  const beraBunniesContract = useBeraBunniesContract()
+  const beraBunniesContract = useXYzKBunniesContract()
 
   if (resetLaggyRef.current && previousAccount !== account) {
     resetLaggyRef.current()
@@ -112,7 +112,7 @@ export const useBeraCollectionsNftsForAddress = (
   const { status, data, mutate, resetLaggy } = useSWR(
     !isProfileFetching && !isEmpty(collections) && isAddress(account) ? [account, 'userNfts'] : null,
     async () =>
-      getBeraCompleteAccountNftData(account, collections, beraBunniesContract, profileNftWithCollectionAddress),
+      getXYzKCompleteAccountNftData(account, collections, beraBunniesContract, profileNftWithCollectionAddress),
     {
       keepPreviousData: true,
     },

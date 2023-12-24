@@ -1,6 +1,6 @@
 import { useEffect, useReducer, useRef, useCallback } from 'react'
 import noop from 'lodash/noop'
-import { useAccount } from 'wagmi'
+import { useAccount } from '@xyzk/wagmi'
 import { TransactionReceipt, TransactionResponse } from '@ethersproject/providers'
 import useCatchTxError from './useCatchTxError'
 

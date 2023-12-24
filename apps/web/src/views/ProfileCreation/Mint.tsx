@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react'
 import { formatUnits } from 'ethers/lib/utils'
 import { Card, CardBody, Heading, Text, useToast } from '@pancakeswap/uikit'
-import { useAccount } from 'wagmi'
+import { useAccount } from '@xyzk/wagmi'
 import { useTranslation } from '@pancakeswap/localization'
 import useApproveConfirmTransaction from 'hooks/useApproveConfirmTransaction'
-import { useCake, useBunnyFactory, useBera, useBeraBunnyFactory } from 'hooks/useContract'
-import { useGetBeraBalance, useGetCakeBalance } from 'hooks/useTokenBalance'
+import { useCake, useXYzK, useXYzKBunnyFactory } from 'hooks/useContract'
+import { useGetXYzKBalance, useGetCakeBalance } from 'hooks/useTokenBalance'
 import { useCallWithGasPrice } from 'hooks/useCallWithGasPrice'
 import ApproveConfirmButtons from 'components/ApproveConfirmButtons'
 import { getNftsFromCollectionApi } from 'state/nftMarket/helpers'
@@ -32,11 +32,11 @@ const Mint: React.FC<React.PropsWithChildren> = () => {
   // const { reader: cakeContractReader, signer: cakeContractApprover } = useCake()
   // const bunnyFactoryContract = useBunnyFactory()
 
-  const { reader: cakeContractReader, signer: cakeContractApprover } = useBera()
+  const { reader: cakeContractReader, signer: cakeContractApprover } = useXYzK()
   console.log('signer', cakeContractApprover)
-  const bunnyFactoryContract = useBeraBunnyFactory()
+  const bunnyFactoryContract = useXYzKBunnyFactory()
   const { t } = useTranslation()
-  const { balance: cakeBalance, fetchStatus } = useGetBeraBalance()
+  const { balance: cakeBalance, fetchStatus } = useGetXYzKBalance()
 
   console.log('balance', cakeBalance)
 
@@ -127,7 +127,7 @@ const Mint: React.FC<React.PropsWithChildren> = () => {
           })}
           {!hasMinimumCakeRequired && (
             <Text color="failure" mb="16px">
-              {t('A minimum of %num% BERA is required', { num: formatUnits(MINT_COST) })}
+              {t('A minimum of %num% XYzK is required', { num: formatUnits(MINT_COST) })}
             </Text>
           )}
           <ApproveConfirmButtons
