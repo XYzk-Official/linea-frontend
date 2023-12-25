@@ -70,7 +70,9 @@ export const getTeams = async (): Promise<TeamsById> => {
 export const getXYzKTeams = async (): Promise<TeamsById> => {
   try {
     const teamsById = fromPairs(teamsList.map((team) => [team.id, team]))
+    console.log('teamsById', teamsById)
     const nbTeams = await profileContract.numberTeams()
+    console.log('nbTeams', nbTeams)
 
     const calls = []
     for (let i = 1; i <= nbTeams.toNumber(); i++) {
@@ -101,6 +103,7 @@ export const getXYzKTeams = async (): Promise<TeamsById> => {
 
     return merge({}, teamsById, onChainTeamData)
   } catch (error) {
+    console.log('loin e', error)
     return null
   }
 }

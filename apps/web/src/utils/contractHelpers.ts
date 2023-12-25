@@ -218,11 +218,12 @@ export const getProfileContract = (signer?: Signer | Provider) => {
 }
 
 export const getXYzKProfileContract = (signer?: Signer | Provider, chainId: number = APP_CHAIN_ID) => {
-  return getContract({ abi: xyzkProfileAbi, address: getXYzKProfileAddress(chainId), signer }) as XyzkProfile
+  console.log('APP_CHAIN_ID', APP_CHAIN_ID)
+  return getContract({ abi: xyzkProfileAbi, address: getXYzKProfileAddress(chainId), chainId, signer }) as XyzkProfile
 }
 
 export const getXYzKBunniesContract = (signer?: Signer | Provider, chainId?: number) => {
-  return getContract({ abi: xyzkBunniesAbi, address: getXYzKBunniesAddress(chainId), signer }) as XyzkBunnies
+  return getContract({ abi: xyzkBunniesAbi, address: getXYzKBunniesAddress(chainId), chainId, signer }) as XyzkBunnies
 }
 
 export const getBunnyFactoryContract = (signer?: Signer | Provider) => {
