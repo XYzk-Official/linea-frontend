@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import BigNumber from 'bignumber.js'
-import { useAccount } from 'wagmi'
+import { useAccount } from '@xyzk/wagmi'
 import { Contract } from 'ethers'
 import { BIG_ZERO } from '@pancakeswap/utils/bigNumber'
 

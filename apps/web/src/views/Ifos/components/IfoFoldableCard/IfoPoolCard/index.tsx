@@ -11,7 +11,7 @@ import {
   ExpandableLabel,
   CardFooter,
 } from '@pancakeswap/uikit'
-import { useAccount } from 'wagmi'
+import { useAccount } from '@xyzk/wagmi'
 import { Ifo, PoolIds } from 'config/constants/types'
 import { useMemo, useState } from 'react'
 import { useProfile } from 'state/profile/hooks'

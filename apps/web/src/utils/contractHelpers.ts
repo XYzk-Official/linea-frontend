@@ -218,7 +218,6 @@ export const getProfileContract = (signer?: Signer | Provider) => {
 }
 
 export const getXYzKProfileContract = (signer?: Signer | Provider, chainId: number = APP_CHAIN_ID) => {
-  console.log('APP_CHAIN_ID', APP_CHAIN_ID)
   return getContract({ abi: xyzkProfileAbi, address: getXYzKProfileAddress(chainId), chainId, signer }) as XyzkProfile
 }
 

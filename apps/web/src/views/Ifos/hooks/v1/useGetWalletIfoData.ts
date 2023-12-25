@@ -1,5 +1,5 @@
 import { useState, useCallback } from 'react'
-import { useAccount } from 'wagmi'
+import { useAccount } from '@xyzk/wagmi'
 import BigNumber from 'bignumber.js'
 import { Ifo, PoolIds } from 'config/constants/types'
 import { useERC20, useIfoV1Contract } from 'hooks/useContract'

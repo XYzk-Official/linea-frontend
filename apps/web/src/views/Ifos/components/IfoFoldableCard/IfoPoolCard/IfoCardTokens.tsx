@@ -18,7 +18,7 @@ import {
   IfoPercentageOfTotal,
   IfoVestingAvailableToClaim,
 } from '@pancakeswap/uikit'
-import { useAccount } from 'wagmi'
+import { useAccount } from '@xyzk/wagmi'
 import { Token } from '@pancakeswap/sdk'
 import { Ifo, PoolIds } from 'config/constants/types'
 import { bscTokens } from '@pancakeswap/tokens'
