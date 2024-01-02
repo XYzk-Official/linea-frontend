@@ -6,6 +6,7 @@ import ifoV2Abi from 'config/abi/ifoV2.json'
 import ifoV3Abi from 'config/abi/ifoV3.json'
 import { bscTokens } from '@pancakeswap/tokens'
 import { Ifo, IfoStatus } from 'config/constants/types'
+import { xyzkMulticallv2 } from 'config/fn'
 
 import { useLpTokenPrice, usePriceCakeUSD } from 'state/farms/hooks'
 import { BIG_ZERO } from '@pancakeswap/utils/bigNumber'
@@ -110,7 +111,7 @@ const useGetPublicIfoData = (ifo: Ifo): PublicIfoData => {
         vestingStartTime,
         basicVestingInformation,
         unlimitedVestingInformation,
-      ] = await multicallv2({
+      ] = await xyzkMulticallv2({
         abi,
         calls: [
           {

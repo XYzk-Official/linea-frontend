@@ -4,12 +4,13 @@ import { useCallback } from 'react'
 import { TransactionResponse } from '@ethersproject/providers'
 import { Contract, CallOverrides } from 'ethers'
 import { useGasPrice } from 'state/user/hooks'
+import { APP_CHAIN_ID } from 'config/chains'
 import get from 'lodash/get'
 import { addBreadcrumb } from '@sentry/nextjs'
 import { GAS_PRICE_GWEI } from '../state/types'
 
 export function useCallWithGasPrice() {
-  const gasPrice = useGasPrice()
+  const gasPrice = useGasPrice(APP_CHAIN_ID)
   const userGasPrice = useSelector<AppState, AppState['user']['gasPrice']>((state) => state.user.gasPrice)
 
   /**

@@ -313,12 +313,36 @@ export function useContract<T extends Contract = Contract>(
   }, [addressOrAddressMap, ABI, providerOrSigner, chainId]) as T
 }
 
+export function useXYzKContract<T extends Contract = Contract>(
+  addressOrAddressMap: string | { [chainId: number]: string } | undefined,
+  ABI: any,
+  withSignerIfPossible = true,
+): T | null {
+  const { chainId } = useActiveChainId()
+
+  const providerOrSigner = useXYzKProviderOrSigner(withSignerIfPossible)
+
+  return useMemo(() => {
+    if (!addressOrAddressMap || !ABI || !providerOrSigner || !chainId) return null
+    let address: string | undefined
+    if (typeof addressOrAddressMap === 'string') address = addressOrAddressMap
+    else address = addressOrAddressMap[chainId]
+    if (!address) return null
+    try {
+      return getContract(address, ABI, providerOrSigner)
+    } catch (error) {
+      console.error('Failed to get contract', error)
+      return null
+    }
+  }, [addressOrAddressMap, ABI, providerOrSigner, chainId]) as T
+}
+
 export function useTokenContract(tokenAddress?: string, withSignerIfPossible?: boolean) {
   return useContract<Erc20>(tokenAddress, ERC20_ABI, withSignerIfPossible)
 }
 
-export function useXYzKContract() {
-  return getXYzKTokenContract()
+export function useXYzKTokenContract(tokenAddress?: string, withSignerIfPossible?: boolean) {
+  return useXYzKContract<Erc20>(tokenAddress, ERC20_ABI, withSignerIfPossible)
 }
 
 export function useWNativeContract(withSignerIfPossible?: boolean): Contract | null {

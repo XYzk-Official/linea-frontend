@@ -4,6 +4,7 @@ import BigNumber from 'bignumber.js'
 import { Ifo, PoolIds } from 'config/constants/types'
 import { useERC20, useIfoV3Contract } from 'hooks/useContract'
 import { multicallv2 } from 'utils/multicall'
+import { xyzkMulticallv2 } from 'config/fn'
 import ifoV3Abi from 'config/abi/ifoV3.json'
 import { fetchCakeVaultUserData } from 'state/pools'
 import { useAppDispatch } from 'state'
@@ -89,7 +90,7 @@ const useGetWalletIfoData = (ifo: Ifo): WalletIfoData => {
     let basicId = null
     let unlimitedId = null
     if (version >= 3.2) {
-      const [[basicIdData], [unlimitedIdData]] = await multicallv2({
+      const [[basicIdData], [unlimitedIdData]] = await xyzkMulticallv2({
         abi: ifoV3Abi,
         calls: [
           { address, name: 'computeVestingScheduleIdForAddressAndPid', params: [account, 0] },
@@ -149,7 +150,11 @@ const useGetWalletIfoData = (ifo: Ifo): WalletIfoData => {
       unlimitedSchedule,
       basicReleasableAmount,
       unlimitedReleasableAmount,
-    ] = await multicallv2({ abi: ifoV3Abi, calls: [...ifoCalls, ...ifov3Calls], options: { requireSuccess: false } })
+    ] = await xyzkMulticallv2({
+      abi: ifoV3Abi,
+      calls: [...ifoCalls, ...ifov3Calls],
+      options: { requireSuccess: false },
+    })
 
     setState((prevState) => ({
       ...prevState,

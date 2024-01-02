@@ -9,8 +9,9 @@ import { useMemo } from 'react'
 import useSWR from 'swr'
 import { BIG_ZERO } from '@pancakeswap/utils/bigNumber'
 import { bscRpcProvider } from 'utils/providers'
+import { APP_CHAIN_ID, XYZK_TOKEN_ADDRESS } from 'config/chains'
 import { useWeb3React } from '@pancakeswap/wagmi'
-import { useTokenContract, useXYzKContract } from './useContract'
+import { useTokenContract, useXYzKTokenContract } from './useContract'
 import { useSWRContract } from './useSWRContract'
 
 const useTokenBalance = (tokenAddress: string, forceBSC?: boolean) => {
@@ -41,10 +42,11 @@ const useTokenBalance = (tokenAddress: string, forceBSC?: boolean) => {
   }
 }
 
-const useXYzKTokenBalance = () => {
+export const useXYzKTokenBalance = (tokenAddress: string, forceBSC?: boolean) => {
   const { address: account } = useAccount()
 
-  const contract = useXYzKContract()
+  // const contract = useXYzKContract()
+  const contract = useXYzKTokenContract(tokenAddress, false)
 
   const key = useMemo(
     () =>
@@ -86,8 +88,9 @@ export const useGetCakeBalance = () => {
   return { balance: EthersBigNumber.from(balance.toString()), fetchStatus }
 }
 
-export const useGetXYzKBalance = () => {
-  const { balance, fetchStatus } = useXYzKTokenBalance()
+export const useGetXYzKBalance = (chainId: number = APP_CHAIN_ID) => {
+  const xyzkTokenAddress = XYZK_TOKEN_ADDRESS[chainId]
+  const { balance, fetchStatus } = useXYzKTokenBalance(xyzkTokenAddress)
   return { balance: EthersBigNumber.from(balance.toString()), fetchStatus }
 }
 

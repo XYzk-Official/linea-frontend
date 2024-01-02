@@ -1,11 +1,39 @@
 import { ERC20Token, ChainId } from '@pancakeswap/sdk'
 import { bscTokens } from '@pancakeswap/tokens'
+import { lineaTestnet } from '@xyzk/wagmi-chains'
 import { CAKE_BNB_LP_MAINNET } from './lp'
 import { Ifo } from './types'
 
 export const cakeBnbLpToken = new ERC20Token(ChainId.BSC, CAKE_BNB_LP_MAINNET, 18, 'CAKE-BNB LP')
 
+const lpToken = new ERC20Token(lineaTestnet.id, '0x37e16520C636E184E766A13f0339F61f263a56a5', 18, 'LTA')
+const offerToken = new ERC20Token(lineaTestnet.id, '0x04c8b978C739dfEc62a2F913c870cf47C30228EC', 18, 'OTB')
+
 const ifos: Ifo[] = [
+  {
+    id: 'token-A',
+    address: '0xE132CcE286Dd1dd5cF4578BB685fE260A85a5baA',
+    isActive: true,
+    name: 'LTA',
+    plannedStartTime: 1704447371, // Friday, January 5, 2024 9:36:11 AM
+    poolBasic: {
+      raiseAmount: '$350,000',
+    },
+    poolUnlimited: {
+      raiseAmount: '$1,050,000',
+    },
+    currency: lpToken,
+    token: offerToken,
+    campaignId: '512100002',
+    articleUrl:
+      'https://pancakeswap.finance/voting/proposal/0x06598b682d9f33ec5ea0c2acf8eba13dea7c63fa08dd2c4dfd7bc7af16920d51',
+    tokenOfferingPrice: 0.04,
+    version: 2,
+    twitterUrl: 'https://twitter.com/ESPL_GLOBAL',
+    description:
+      'The Esports Players League (ESPL) Arena is a platform that hosts global Esports tournaments and coordinates different aspects such as setting of tournament parameters, score-keeping, prize pool payouts via crypto and more.',
+    vestingTitle: 'Test $ARENA to enjoy premium features on ESPL’s Esports tournament platform',
+  },
   {
     id: 'arena',
     address: '0xC7d259712a26fa33a9a94cFB58964a67dAB27095',

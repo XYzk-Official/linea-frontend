@@ -16,6 +16,9 @@ const CurrentIfo: React.FC<React.PropsWithChildren<TypeProps>> = ({ activeIfo })
   const publicIfoData = useGetPublicIfoV3Data(activeIfo)
   const walletIfoData = useGetWalletIfoV3Data(activeIfo)
 
+  console.log('publicIfoData', publicIfoData)
+  console.log('walletIfoData', walletIfoData)
+
   const { poolBasic, poolUnlimited } = walletIfoData
 
   const isCommitted = useMemo(

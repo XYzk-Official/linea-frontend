@@ -25,7 +25,7 @@ import {
 import { useAccount } from '@xyzk/wagmi'
 
 import { useTranslation } from '@pancakeswap/localization'
-import useTokenBalance from 'hooks/useTokenBalance'
+import useTokenBalance, { useXYzKTokenBalance } from 'hooks/useTokenBalance'
 import { useProfile } from 'state/profile/hooks'
 import ConnectWalletButton from 'components/ConnectWalletButton'
 import { getBalanceNumber } from '@pancakeswap/utils/formatBalance'
@@ -171,7 +171,7 @@ const IfoSteps: React.FC<React.PropsWithChildren<TypeProps>> = ({
   const { hasActiveProfile } = useProfile()
   const { address: account } = useAccount()
   const { t } = useTranslation()
-  const { balance } = useTokenBalance(ifoCurrencyAddress)
+  const { balance } = useXYzKTokenBalance(ifoCurrencyAddress)
   const stepsValidationStatus = [hasActiveProfile, balance.isGreaterThan(0), isCommitted, hasClaimed]
 
   const getStatusProp = (index: number): StepStatus => {
