@@ -1,9 +1,7 @@
 import { ChainId } from '@pancakeswap/sdk'
 
-import { SupportedChainId } from './supportedChains'
-
-export type ContractAddresses<T extends ChainId = SupportedChainId> = {
-  [chainId in T]: string
+export type ContractAddresses = {
+  [chainId: number]: string
 }
 
 export const ICAKE = {

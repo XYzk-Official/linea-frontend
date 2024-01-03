@@ -41,11 +41,12 @@ import {
   SerializedLockedCakeVault,
 } from 'state/types'
 import cakeAbi from 'config/abi/cake.json'
-import { multicallv2 } from 'utils/multicall'
 import { isAddress } from 'utils'
 import { provider } from 'utils/wagmi'
+import { xyzkMulticallv2 } from 'config/fn'
 import { getPoolsPriceHelperLpFiles } from 'config/constants/priceHelperLps/index'
 import { farmV3ApiFetch } from 'state/farmsV3/hooks'
+import { XYZK_TOKEN_ADDRESS } from 'config/chains'
 
 import fetchFarms from '../farms/fetchFarms'
 import getFarmsPrices from '../farms/getFarmsPrices'
@@ -114,17 +115,17 @@ export const fetchCakePoolUserDataAsync =
   ({ account, chainId }: { account: string; chainId: ChainId }) =>
   async (dispatch) => {
     const allowanceCall = {
-      address: bscTokens.cake.address,
+      address: XYZK_TOKEN_ADDRESS[chainId],
       name: 'allowance',
       params: [account, getCakeVaultAddress(chainId)],
     }
     const balanceOfCall = {
-      address: bscTokens.cake.address,
+      address: XYZK_TOKEN_ADDRESS[chainId],
       name: 'balanceOf',
       params: [account],
     }
     const cakeContractCalls = [allowanceCall, balanceOfCall]
-    const [[allowance], [stakingTokenBalance]] = await multicallv2({ abi: cakeAbi, calls: cakeContractCalls })
+    const [[allowance], [stakingTokenBalance]] = await xyzkMulticallv2({ abi: cakeAbi, calls: cakeContractCalls })
 
     dispatch(
       setPoolUserData({

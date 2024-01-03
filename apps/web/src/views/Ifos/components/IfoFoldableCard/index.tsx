@@ -14,7 +14,7 @@ import { useAccount } from '@xyzk/wagmi'
 import { ToastDescriptionWithTx } from 'components/Toast'
 import { Ifo, PoolIds } from 'config/constants/types'
 import useCatchTxError from 'hooks/useCatchTxError'
-import { useERC20 } from 'hooks/useContract'
+import { useERC20, useXYzKERC20 } from 'hooks/useContract'
 import { useIsWindowVisible } from '@pancakeswap/hooks'
 import useSWRImmutable from 'swr/immutable'
 import { FAST_INTERVAL } from 'config/constants'
@@ -258,7 +258,11 @@ const IfoCard: React.FC<React.PropsWithChildren<IfoFoldableCardProps>> = ({ ifo,
   const [enableStatus, setEnableStatus] = useState(EnableStatus.DISABLED)
   const { t } = useTranslation()
   const { address: account } = useAccount()
-  const raisingTokenContract = useERC20(ifo.currency.address, false)
+  const raisingTokenContract = useXYzKERC20(ifo.currency.address, false)
+
+  console.log('ifo.currency.address', ifo.currency.address)
+
+  console.log('raisingTokenContract', raisingTokenContract)
   // Continue to fetch 2 more minutes / is vesting need get latest data
   const isRecentlyActive =
     (publicIfoData.status !== 'finished' ||
@@ -339,6 +343,7 @@ const IfoCard: React.FC<React.PropsWithChildren<IfoFoldableCardProps>> = ({ ifo,
     const checkAllowance = async () => {
       const approvalRequired = await requiresApproval(raisingTokenContract, account, contract.address)
       setEnableStatus(approvalRequired ? EnableStatus.DISABLED : EnableStatus.ENABLED)
+      console.log('approvalRequired', approvalRequired)
     }
 
     if (account) {

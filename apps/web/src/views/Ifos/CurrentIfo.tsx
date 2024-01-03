@@ -18,6 +18,7 @@ const CurrentIfo: React.FC<React.PropsWithChildren<TypeProps>> = ({ activeIfo })
 
   console.log('publicIfoData', publicIfoData)
   console.log('walletIfoData', walletIfoData)
+  console.log('activeIfo', activeIfo)
 
   const { poolBasic, poolUnlimited } = walletIfoData
 

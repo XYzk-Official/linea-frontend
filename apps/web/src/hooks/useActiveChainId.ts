@@ -4,7 +4,7 @@ import { useRouter } from 'next/router'
 import { useDeferredValue } from 'react'
 import { isChainSupported } from 'utils/wagmi'
 import { useNetwork } from '@xyzk/wagmi'
-import { getChainId } from 'config/chains'
+import { APP_CHAIN_ID, getChainId } from 'config/chains'
 import { linea } from '@xyzk/wagmi-chains'
 import { useSessionChainId } from './useSessionChainId'
 
@@ -49,7 +49,7 @@ export const useActiveChainId = () => {
   const queryChainId = useAtomValue(queryChainIdAtom)
 
   const { chain } = useNetwork()
-  const chainId = localChainId ?? chain?.id ?? (queryChainId >= 0 ? linea.id : undefined)
+  const chainId = localChainId ?? chain?.id ?? (queryChainId >= 0 ? APP_CHAIN_ID : undefined)
 
   const isNotMatched = useDeferredValue(chain && localChainId && chain.id !== localChainId)
 

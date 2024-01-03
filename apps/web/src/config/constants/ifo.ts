@@ -18,9 +18,11 @@ const ifos: Ifo[] = [
     plannedStartTime: 1704447371, // Friday, January 5, 2024 9:36:11 AM
     poolBasic: {
       raiseAmount: '$350,000',
+      distributionRatio: 0.3,
     },
     poolUnlimited: {
       raiseAmount: '$1,050,000',
+      distributionRatio: 0.7,
     },
     currency: lpToken,
     token: offerToken,
