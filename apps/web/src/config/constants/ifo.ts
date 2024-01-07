@@ -12,7 +12,7 @@ const offerToken = new ERC20Token(lineaTestnet.id, '0x04c8b978C739dfEc62a2F913c8
 const ifos: Ifo[] = [
   {
     id: 'token-A',
-    address: '0xE132CcE286Dd1dd5cF4578BB685fE260A85a5baA',
+    address: '0x30FcEfdB37d752b7F4bC69d198c73AfF07af4546',
     isActive: true,
     name: 'LTA',
     plannedStartTime: 1704447371, // Friday, January 5, 2024 9:36:11 AM

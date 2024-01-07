@@ -4,7 +4,7 @@ import { AccessListish } from '@ethersproject/transactions'
 import { Provider } from '@ethersproject/providers'
 import { BlockTag } from '@ethersproject/abstract-provider'
 
-export const BSC_BLOCK_TIME = 3
+export const BSC_BLOCK_TIME = 1
 
 // CAKE_PER_BLOCK details
 // 40 CAKE is minted per block

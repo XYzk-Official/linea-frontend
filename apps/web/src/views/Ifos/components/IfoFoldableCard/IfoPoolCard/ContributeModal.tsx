@@ -17,7 +17,7 @@ import {
   useTooltip,
   IfoHasVestingNotice,
 } from '@pancakeswap/uikit'
-import { useAccount } from 'wagmi'
+import { useAccount } from '@xyzk/wagmi'
 import BigNumber from 'bignumber.js'
 import ApproveConfirmButtons from 'components/ApproveConfirmButtons'
 import { ToastDescriptionWithTx } from 'components/Toast'
@@ -110,23 +110,36 @@ const ContributeModal: React.FC<React.PropsWithChildren<Props>> = ({
 
   // in v3 max token entry is based on ifo credit and hard cap limit per user minus amount already committed
   const maximumTokenEntry = useMemo(() => {
+    console.log(
+      '🚀 ~ file: ContributeModal.tsx:114 ~ maximumTokenEntry ~ creditLeft:',
+      new BigNumber(creditLeft).toString(),
+    )
+    console.log('boolean', !creditLeft)
     if (!creditLeft || (ifo.version >= 3.1 && poolId === PoolIds.poolBasic)) {
+      console.log('ko có credit left ne')
       return limitPerUserInLP.minus(amountTokenCommittedInLP)
     }
+    console.log('limitPerUserInLP', new BigNumber(limitPerUserInLP).toString())
     if (limitPerUserInLP.isGreaterThan(0)) {
       if (limitPerUserInLP.isGreaterThan(0)) {
-        return limitPerUserInLP.minus(amountTokenCommittedInLP).isLessThanOrEqualTo(creditLeft)
+        return limitPerUserInLP.minus(amountTokenCommittedInLP).isGreaterThan(creditLeft)
           ? limitPerUserInLP.minus(amountTokenCommittedInLP)
           : creditLeft
       }
     }
     return creditLeft
   }, [creditLeft, limitPerUserInLP, amountTokenCommittedInLP, ifo.version, poolId])
+  console.log(
+    '🚀 ~ file: ContributeModal.tsx:126 ~ maximumTokenEntry ~ maximumTokenEntry:',
+    new BigNumber(maximumTokenEntry).toString(),
+  )
 
   // include user balance for input
   const maximumTokenCommittable = useMemo(() => {
     return maximumTokenEntry.isLessThanOrEqualTo(userCurrencyBalance) ? maximumTokenEntry : userCurrencyBalance
   }, [maximumTokenEntry, userCurrencyBalance])
+
+  console.log('maximumTokenCommittablen', new BigNumber(maximumTokenCommittable).toString())
 
   const basicTooltipContent = t(
     'For the private sale, each eligible participant will be able to commit any amount of CAKE up to the maximum commit limit, which is published along with the IFO voting proposal.',

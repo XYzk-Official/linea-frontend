@@ -10,7 +10,6 @@ import { xyzkMulticallv2 } from 'config/fn'
 
 import { useLpTokenPrice, usePriceCakeUSD } from 'state/farms/hooks'
 import { BIG_ZERO } from '@pancakeswap/utils/bigNumber'
-import { multicallv2 } from 'utils/multicall'
 import { PublicIfoData } from '../../types'
 import { getStatus } from '../helpers'
 
@@ -45,6 +44,11 @@ const useGetPublicIfoData = (ifo: Ifo): PublicIfoData => {
   const { address, version, plannedStartTime } = ifo
   const cakePriceUsd = usePriceCakeUSD()
   const lpTokenPriceInUsd = useLpTokenPrice(ifo.currency.symbol)
+  console.log(
+    '🚀 ~ file: useGetPublicIfoData.ts:47 ~ useGetPublicIfoData ~ lpTokenPriceInUsd:',
+    new BigNumber(lpTokenPriceInUsd).toString(),
+  )
+
   const currencyPriceInUSD = ifo.currency === bscTokens.cake ? cakePriceUsd : lpTokenPriceInUsd
 
   const [state, setState] = useState({
@@ -177,6 +181,7 @@ const useGetPublicIfoData = (ifo: Ifo): PublicIfoData => {
       const endBlockNum = endBlock ? endBlock[0].toNumber() : 0
       const taxRateNum = taxRate ? new BigNumber(taxRate[0]._hex).div(TAX_PRECISION).toNumber() : 0
 
+      console.log('currentBlock', currentBlock)
       const status = getStatus(currentBlock, startBlockNum, endBlockNum)
       const totalBlocks = endBlockNum - startBlockNum
       const blocksRemaining = endBlockNum - currentBlock

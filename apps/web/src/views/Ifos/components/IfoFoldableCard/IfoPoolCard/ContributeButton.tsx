@@ -3,7 +3,7 @@ import { Button, IfoGetTokenModal, useModal, useToast } from '@pancakeswap/uikit
 import BigNumber from 'bignumber.js'
 import { ToastDescriptionWithTx } from 'components/Toast'
 import { Ifo, PoolIds } from 'config/constants/types'
-import useTokenBalance from 'hooks/useTokenBalance'
+import useTokenBalance, { useXYzKTokenBalance } from 'hooks/useTokenBalance'
 import { useCurrentBlock } from 'state/block/hooks'
 import { getBalanceNumber } from '@pancakeswap/utils/formatBalance'
 import { PublicIfoData, WalletIfoData } from 'views/Ifos/types'
@@ -20,10 +20,19 @@ const ContributeButton: React.FC<React.PropsWithChildren<Props>> = ({ poolId, if
   const userPoolCharacteristics = walletIfoData[poolId]
   const { isPendingTx, amountTokenCommittedInLP } = userPoolCharacteristics
   const { limitPerUserInLP } = publicPoolCharacteristics
+  console.log(
+    '🚀 ~ file: ContributeButton.tsx:23 ~ publicPoolCharacteristics:',
+    new BigNumber(limitPerUserInLP).toString(),
+  )
+
   const { t } = useTranslation()
   const { toastSuccess } = useToast()
   const currentBlock = useCurrentBlock()
-  const { balance: userCurrencyBalance } = useTokenBalance(ifo.currency.address)
+  const { balance: userCurrencyBalance } = useXYzKTokenBalance(ifo.currency.address)
+  console.log(
+    '🚀 ~ file: ContributeButton.tsx:32 ~ userCurrencyBalance:',
+    new BigNumber(userCurrencyBalance).toString(),
+  )
 
   // Refetch all the data, and display a message when fetching is done
   const handleContributeSuccess = async (amount: BigNumber, txHash: string) => {
@@ -60,14 +69,19 @@ const ContributeButton: React.FC<React.PropsWithChildren<Props>> = ({ poolId, if
     false,
   )
 
-  const noNeedCredit = ifo.version >= 3.1 && poolId === PoolIds.poolBasic
+  const needCredit = ifo.version >= 3.1 && poolId === PoolIds.poolBasic
+  console.log('🚀 ~ file: ContributeButton.tsx:64 ~ noNeedCredit:', needCredit)
+  console.log('credit', new BigNumber(walletIfoData.ifoCredit?.creditLeft).toString())
 
   const isMaxCommitted =
-    (!noNeedCredit &&
-      walletIfoData.ifoCredit?.creditLeft &&
-      walletIfoData.ifoCredit?.creditLeft.isLessThanOrEqualTo(0)) ||
+    (needCredit && walletIfoData.ifoCredit?.creditLeft && walletIfoData.ifoCredit?.creditLeft.isLessThanOrEqualTo(0)) ||
     (limitPerUserInLP.isGreaterThan(0) && amountTokenCommittedInLP.isGreaterThanOrEqualTo(limitPerUserInLP))
 
+  const check1 =
+    needCredit && walletIfoData.ifoCredit?.creditLeft && walletIfoData.ifoCredit?.creditLeft.isLessThanOrEqualTo(0)
+  const check2 = limitPerUserInLP.isGreaterThan(0) && amountTokenCommittedInLP.isGreaterThanOrEqualTo(limitPerUserInLP)
+
+  console.log('isMaxCommitted', needCredit)
   const isDisabled = isPendingTx || isMaxCommitted || publicIfoData.status !== 'live'
 
   return (
