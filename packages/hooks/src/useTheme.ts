@@ -4,7 +4,7 @@ import { ThemeContext as StyledThemeContext } from 'styled-components'
 import { useTheme as useNextTheme } from 'next-themes'
 
 export const COOKIE_THEME_KEY = 'theme'
-export const THEME_DOMAIN = '.pancakeswap.finance'
+export const THEME_DOMAIN = '.xyzk-theme'
 
 const useTheme = () => {
   const { resolvedTheme, setTheme } = useNextTheme()
@@ -13,7 +13,7 @@ const useTheme = () => {
   const handleSwitchTheme = useCallback(
     (themeValue: 'light' | 'dark') => {
       try {
-        setTheme(themeValue)
+        setTheme('dark')
         Cookie.set(COOKIE_THEME_KEY, themeValue, { domain: THEME_DOMAIN })
       } catch (err) {
         // ignore set cookie error for perp theme

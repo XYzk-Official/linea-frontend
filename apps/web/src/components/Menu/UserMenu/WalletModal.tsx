@@ -11,7 +11,7 @@ import {
   ModalHeader as UIKitModalHeader,
   ModalTitle,
 } from '@pancakeswap/uikit'
-import { useAccount, useBalance } from 'wagmi'
+import { useAccount, useBalance } from '@xyzk/wagmi'
 import { useState, useCallback } from 'react'
 import { useTranslation } from '@pancakeswap/localization'
 import styled from 'styled-components'

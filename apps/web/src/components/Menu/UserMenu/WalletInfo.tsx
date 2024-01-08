@@ -21,7 +21,7 @@ import { ChainLogo } from 'components/Logo/ChainLogo'
 
 import { getBlockExploreLink, getBlockExploreName } from 'utils'
 import { formatBigNumber, getFullDisplayBalance } from '@pancakeswap/utils/formatBalance'
-import { useBalance } from 'wagmi'
+import { useBalance } from '@xyzk/wagmi'
 import { useDomainNameForAddress } from 'hooks/useDomain'
 import CakeBenefitsCard from './CakeBenefitsCard'
 
