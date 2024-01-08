@@ -10,10 +10,12 @@ const useTheme = () => {
   const { resolvedTheme, setTheme } = useNextTheme()
   const theme = useContext(StyledThemeContext)
 
+  setTheme('dark')
+
   const handleSwitchTheme = useCallback(
     (themeValue: 'light' | 'dark') => {
       try {
-        setTheme('dark')
+        setTheme(themeValue)
         Cookie.set(COOKIE_THEME_KEY, themeValue, { domain: THEME_DOMAIN })
       } catch (err) {
         // ignore set cookie error for perp theme
