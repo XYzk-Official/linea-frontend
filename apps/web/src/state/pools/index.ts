@@ -27,6 +27,7 @@ import {
   isLegacyPool,
   getPoolAprByTokenPerSecond,
   getPoolAprByTokenPerBlock,
+  SupportedChainId,
 } from '@pancakeswap/pools'
 import { ChainId } from '@pancakeswap/sdk'
 
@@ -112,7 +113,7 @@ export const fetchCakePoolPublicDataAsync = () => async (dispatch) => {
 }
 
 export const fetchCakePoolUserDataAsync =
-  ({ account, chainId }: { account: string; chainId: ChainId }) =>
+  ({ account, chainId }: { account: string; chainId: SupportedChainId }) =>
   async (dispatch) => {
     const allowanceCall = {
       address: XYZK_TOKEN_ADDRESS[chainId],
@@ -344,7 +345,7 @@ export const fetchCakeVaultPublicData = createAsyncThunk<SerializedLockedCakeVau
   },
 )
 
-export const fetchCakeFlexibleSideVaultPublicData = createAsyncThunk<SerializedCakeVault, ChainId>(
+export const fetchCakeFlexibleSideVaultPublicData = createAsyncThunk<SerializedCakeVault, SupportedChainId>(
   'cakeFlexibleSideVault/fetchPublicData',
   async (chainId) => {
     const publicVaultInfo = await fetchPublicFlexibleSideVaultData({ chainId, provider })
@@ -352,7 +353,7 @@ export const fetchCakeFlexibleSideVaultPublicData = createAsyncThunk<SerializedC
   },
 )
 
-export const fetchCakeVaultFees = createAsyncThunk<SerializedVaultFees, ChainId>(
+export const fetchCakeVaultFees = createAsyncThunk<SerializedVaultFees, SupportedChainId>(
   'cakeVault/fetchFees',
   async (chainId) => {
     const vaultFees = await fetchVaultFees({ chainId, provider, cakeVaultAddress: getCakeVaultAddress(chainId) })

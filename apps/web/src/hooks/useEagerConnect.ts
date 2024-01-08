@@ -12,7 +12,7 @@ const useEagerConnect = () => {
       // @ts-ignore
       !window.cy
     ) {
-      import('wagmi/connectors/safe').then(({ SafeConnector }) => {
+      import('@xyzk/wagmi/connectors/safe').then(({ SafeConnector }) => {
         const safe = new SafeConnector({ chains: CHAINS })
         connectAsync({ connector: safe }).catch(() => {
           client.autoConnect()

@@ -11,7 +11,7 @@ import { Provider as JotaiProvider } from 'jotai'
 import { initializeStore, makeStore } from 'state'
 import { SWRConfig } from 'swr'
 import { vi } from 'vitest'
-import { WagmiConfig } from 'wagmi'
+import { WagmiConfig } from '@xyzk/wagmi'
 import { useHydrateAtoms } from 'jotai/utils'
 import { client } from './utils/wagmi'
 

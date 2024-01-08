@@ -11,7 +11,7 @@ import { getCakeFlexibleSideVaultAddress, getCakeVaultAddress } from './getAddre
 
 interface Params {
   cakeVaultAddress?: string
-  chainId: ChainId
+  chainId: any
   provider: OnChainProvider
 }
 

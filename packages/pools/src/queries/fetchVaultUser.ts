@@ -9,7 +9,7 @@ import { getCakeFlexibleSideVaultV2Contract } from './getContracts'
 
 interface Params {
   account: string
-  chainId: ChainId
+  chainId: any
   provider: OnChainProvider
 }
 
